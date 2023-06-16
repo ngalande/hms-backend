@@ -9,19 +9,27 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.32.0"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "db:create": "sequelize-cli db:create",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:g:migration": "sequelize-cli migration:generate --name",
+    "db:g:seed": "sequelize-cli seed:generate --name",
+    "db:seeds": "sequelize-cli db:seed:all"
   },
   "name": "hotel_backend",
   "version": "1.0.0",
   "description": "some hotel management backend",
   "main": "server.js",
   "author": "sam || blessings",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "sequelize-cli": "^6.6.1"
+  }
 }
