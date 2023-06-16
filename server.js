@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path')
 
 
 
@@ -20,12 +22,18 @@ const db = require("./src/v1.0/models")
 // const hotel = require('./src/v1/routes/hotel-route')
 
 //routes v2
-const users = require("./src/v1.0/routes/user-route")
+const users = require("./src/v1.0/routes/user-route");
+
 
 
 
 //dependencies to keep the app stable
+//log all events and store them
 app.use(logger('dev'))
+app.use(logger('common', {
+    stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+}))
+
 app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
