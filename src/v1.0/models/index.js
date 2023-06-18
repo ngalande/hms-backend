@@ -19,4 +19,7 @@ const db ={}
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.user = require("./user")(sequelize, Sequelize);
+db.room = require("./rooms/room")(sequelize, Sequelize);
+db.roomtype = require("./rooms/roomtype")(sequelize, Sequelize);
+db.roomreservation = require("./rooms/roomreservation")(sequelize, Sequelize);
 module.exports = db;

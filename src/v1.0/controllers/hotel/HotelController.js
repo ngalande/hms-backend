@@ -4,7 +4,7 @@ const HotelController = (serviceContainer) => {
             const room = await serviceContainer.hotelservice.addRoom(req.body)
             return res.status(201).json({
                 success: true,
-                message: `Room successfully Registered`,
+                message: `Room successfully Created`,
                 data: room
             })
         } catch (error) {
@@ -18,7 +18,11 @@ const HotelController = (serviceContainer) => {
     const getRooms = async (req, res) => {
         try {
             const rooms = await serviceContainer.hotelservice.getRooms();
+            if(rooms.length < 1){
+                throw new Error("No rooms created")
+            }
             return res.status(200).send(rooms)
+
         } catch (error) {
             return res.status(400).json({
                 success: false,
@@ -40,9 +44,9 @@ const HotelController = (serviceContainer) => {
     }
 
     const deleteRoom = async (req, res) => {
-        const userid = req.params.id;
+        const roomid = req.params.id;
         try {
-            await serviceContainer.hotelservice.deleteRoom(userid)
+            await serviceContainer.hotelservice.deleteRoom(roomid)
             return res.status(200).send({
                 success: true,
                 message: `Room deleted!`

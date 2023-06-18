@@ -23,6 +23,7 @@ const db = require("./src/v1.0/models")
 
 //routes v2
 const users = require("./src/v1.0/routes/user-route");
+const hotels = require("./src/v1.0/routes/hotel-route")
 
 
 
@@ -66,6 +67,7 @@ db.sequelize.sync()
 // app.use('/api/v1/hotel', hotel)
 
 app.use('/api/v2/user', users)
+app.use('/api/v2/hotel', hotels)
 
 //starting port 
 port = process.env.PORT;
