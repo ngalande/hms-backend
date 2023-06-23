@@ -6,7 +6,7 @@ module.exports =
   {
       username: USERNAME,
       password: PASSWORD,
-      database: "hotel",
+      database: DATABASE,
       host: HOST,
       port: DB_PORT,
       dialect: 'postgres',

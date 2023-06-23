@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        name: {
+        room_type_name: {
             type: Sequelize.STRING
         },
         number: {

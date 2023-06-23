@@ -2,10 +2,16 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
     const RoomType = sequelize.define("RoomReservation", {
-        id: {
+        id: { 
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
+        },
+        userid: {
+            type: Sequelize.STRING
+        },
+        username: {
+            type: Sequelize.STRING
         },
         email: {
             type: Sequelize.STRING
