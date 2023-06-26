@@ -1,6 +1,7 @@
 const db = require("../models");
 const Room = db.room
 const RoomType = db.roomtype
+const RoomReservation = db.roomreservation
 
 const RoomRepository = () => {
     // room section
@@ -25,8 +26,8 @@ const RoomRepository = () => {
     }
 
     //room type section
-    const findRoomTypeByName = async(name) => {
-        return RoomType.findOne({ where: {room_type_name: name }})
+    const findRoomTypeByName = async(room_type_name) => {
+        return RoomType.findOne({ where: {room_type_name: room_type_name }})
     }
 
     const findAllRoomTypes = async() => {
@@ -38,12 +39,32 @@ const RoomRepository = () => {
     }
 
     const deleteRoomType = async (id) => {
-        return RoomType.Destroy({ where:{id: id }})
+        return RoomType.destroy({ where:{id: id }})
     }
 
     const updateRoomType = async () => {
 
     }
+
+    //room reservation section
+
+    const findAllRoomReservations = async() => {
+        return  RoomReservation.findAll()
+    }
+
+    const findRoomReservationbyID = async(id) => {
+        return RoomReservation.findOne({ where:{id: id}})
+    }
+
+    const findReservedRooms = async() => {
+        return RoomReservation.findAll({ where:{status:"RESERVED"} })
+    }
+
+    const findUnreservedRooms = async() => {
+        return RoomReservation.findAll({ where:{status:"UNRESERVED"} })
+    }
+
+
 
     return {
         findRoomByName,
@@ -53,7 +74,11 @@ const RoomRepository = () => {
         findRoomTypeByName,
         findAllRoomTypes,
         findRoomTypeByID,
-        deleteRoomType
+        deleteRoomType,
+        findAllRoomReservations,
+        findRoomReservationbyID,
+        findReservedRooms,
+        findUnreservedRooms
     }
 }
 

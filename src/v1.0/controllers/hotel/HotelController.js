@@ -100,10 +100,10 @@ const HotelController = (serviceContainer) => {
         }
     }
 
-    const getRoomTypeByName = async () => {
-        let name = req.params.name;
+    const getRoomTypeByName = async (req, res) => {
+        let room_type_name = req.params.room_type_name;
         try {
-            const roomtypes = await serviceContainer.hotelservice.getRoomTypeByName(name);
+            const roomtypes = await serviceContainer.hotelservice.getRoomTypeByName(room_type_name);
             return res.status(200).send(roomtypes)
         } catch (error) {
             return res.status(400).json({
@@ -116,7 +116,7 @@ const HotelController = (serviceContainer) => {
     const getRoomTypeByID = async (req, res) => {
         let id = req.params.id;
         try {
-            const roomtypes = await serviceContainer.hotelservice.getRoomTypeByName(id);
+            const roomtypes = await serviceContainer.hotelservice.getRoomTypeByID(id);
             return res.status(200).send(roomtypes)
         } catch (error) {
             return res.status(400).json({
@@ -129,7 +129,7 @@ const HotelController = (serviceContainer) => {
     const deleteRoomType = async (req, res) => {
         let id = req.params.id;
         try {
-            await serviceContainer.hotelservice.deleteRoom(id)
+            await serviceContainer.hotelservice.deleteRoomType(id)
             return res.status(200).send({
                 success: true,
                 message: `Room type deleted!`
@@ -139,6 +139,68 @@ const HotelController = (serviceContainer) => {
                 success: false,
                 error:error.message,
                 message: `Room type doesn't exist`
+            })
+        }
+    }
+
+    //room reservation
+    const createRoomReservation = async(req, res) => {
+        try {
+            const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(req.body)
+            return res.status(201).json({
+                success: true,
+                message: `Room Reservation successfully Created`,
+                data: createroomreservation
+            })
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
+
+    const getRoomReservations = async(req, res) => {
+        try {
+            const roomreservations = await serviceContainer.hotelservice.getRoomReservation();
+            if(roomreservations.length < 1){
+                throw new Error("No room reservations")
+            }
+            return res.status(200).send(roomreservations)
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
+
+    const getReservedRooms = async (req, res) => {
+        try {
+            const reservedrooms = await serviceContainer.hotelservice.getReservedRooms()
+            if(reservedrooms.length < 1){
+                throw new Error("No reserved rooms")
+            }
+            return res.status(200).send(reservedrooms)
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
+
+    const getUnreservedRooms = async (req, res) => {
+        try {
+            const unreservedrooms = await serviceContainer.hotelservice.getUnreservedRooms()
+            if(unreservedrooms.length < 1){
+                throw new Error("No reserved rooms")
+            }
+            return res.status(200).send(unreservedrooms)
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
             })
         }
     }
@@ -153,7 +215,11 @@ const HotelController = (serviceContainer) => {
         getRoomTypes,
         getRoomTypeByID,
         getRoomTypeByName,
-        deleteRoomType
+        deleteRoomType,
+        createRoomReservation,
+        getRoomReservations,
+        getReservedRooms,
+        getUnreservedRooms
     }
 }
 

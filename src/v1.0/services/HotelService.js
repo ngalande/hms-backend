@@ -1,6 +1,7 @@
 const db = require('../models');
 const Room = db.room
 const RoomType = db.roomtype
+const RoomReservation = db.roomreservation
 const RoomRepository = require('../repositories/RoomRepository')
 
 const HotelService = () => {
@@ -47,10 +48,10 @@ const HotelService = () => {
 
     //roomtype
     const addRoomType = async(Data) => {
-        const {name} = Data;
+        const {room_type_name} = Data;
 
         //check if room type already exists
-        const roomTypeExists = await RoomRepository.findRoomTypeByName(name);
+        const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
         if(roomTypeExists) {
             throw new Error("Room Type Already exists")
         }
@@ -67,8 +68,8 @@ const HotelService = () => {
         return roomTypes
     }
 
-    const getRoomTypeByName = async(name) => {
-        let roomType = await RoomRepository.findRoomTypeByName(name);
+    const getRoomTypeByName = async(room_type_name) => {
+        let roomType = await RoomRepository.findRoomTypeByName(room_type_name);
         if(!roomType) {
             throw new Error("Room Type not found")
         }
@@ -86,12 +87,44 @@ const HotelService = () => {
     }
 
     const deleteRoomType = async(id) => {
-        let roomtype = await RoomRepository.findRoomTypeByID(id);
+        let roomtype = await RoomRepository.deleteRoomType(id);
         if(!roomtype){
             throw new Error("Room type not found")
         }
 
         return roomtype
+    }
+
+    //room reservation ends
+    const addRoomReservation = async(Data) => {
+        await RoomReservation.create(Data)
+    }
+
+    const getRoomReservation = async(req, res) => {
+        const roomreservations = await RoomRepository.findAllRoomReservations();
+        if(!roomreservations){
+            throw new Error("No Room Reservations")
+        }
+
+        return roomreservations
+    }
+
+    const getReservedRooms = async(req, res) => {
+        const reservedrooms = await RoomRepository.findReservedRooms();
+        if(!reservedrooms){
+            throw new Error("No Reserved rooms")
+        }
+
+        return reservedrooms
+    }
+
+    const getUnreservedRooms = async(req, res) => {
+        const unreservedrooms = await RoomRepository.findUnreservedRooms();
+        if(!unreservedrooms){
+            throw new Error("No Reserved rooms")
+        }
+
+        return unreservedrooms
     }
 
     return{
@@ -103,7 +136,11 @@ const HotelService = () => {
         getRoomTypes,
         getRoomTypeByID,
         getRoomTypeByName,
-        deleteRoomType
+        deleteRoomType,
+        addRoomReservation,
+        getRoomReservation,
+        getReservedRooms,
+        getUnreservedRooms
     }
 }
 

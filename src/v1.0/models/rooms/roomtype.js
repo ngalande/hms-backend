@@ -8,15 +8,27 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         room_type_name: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         number: {
-            type: Sequelize.INTEGER
+            type: DataTypes.INTEGER
         },
-        price: {
+        price: { 
             type: DataTypes.INTEGER
         }
-    })
+    });
+
+    RoomType.associate = (models) => {
+        RoomType.belongs(models.User, {
+            foreignKey: {
+                name: 'userId',
+                allowNull: false
+            },
+            as: 'roomtype'
+        });
+    };
+
     return RoomType
 }
 

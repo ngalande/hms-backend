@@ -12,11 +12,11 @@ const UserRepository = () => {
     }
 
     const findUser = async (id) => {
-        return User.findOne({ where: {_id: id} })
+        return User.findOne({ where: {id: id} })
     }
 
     const deleteUser = async (userid) => {
-        return User.Destroy({_id: userid})
+        return User.destroy({ where:{id: userid}})
     }
 
     const findUserPassword = async(password) => {

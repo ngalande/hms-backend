@@ -1,23 +1,20 @@
 const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-    const RoomType = sequelize.define("RoomReservation", {
+    const RoomReservation = sequelize.define("RoomReservation", {
         id: { 
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        userid: {
-            type: Sequelize.STRING
-        },
         username: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
         email: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
         roomtype: {
-            type: Sequelize.STRING //link from roomtype
+            type: DataTypes.STRING //link from roomtype
         },
         duration: {
             type: DataTypes.INTEGER
@@ -32,6 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 'UNRESERVED'
         }
     })
-    return RoomType
+
+    return RoomReservation
 }
 

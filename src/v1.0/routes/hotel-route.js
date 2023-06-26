@@ -22,7 +22,7 @@ router.delete('/delete-room/:id', (req, res) =>
 )
 
 //room type ends
-router.post('/create-roomtypes', (req, res) => 
+router.post('/create-roomtype', (req, res) => 
     HotelControllerHandler.createRoomType(req, res)
 )
 
@@ -30,16 +30,35 @@ router.get('/get-roomtypes', (req, res) =>
     HotelControllerHandler.getRoomTypes(req, res)
 )
 
-router.get('/get-roomtype/:name', (req, res) => 
-    HotelControllerHandler.getRoomTypeByName(req, res)
-)
 
 router.get('/get-roomtype/:id', (req, res) => 
- HotelControllerHandler.getRoomTypeByID(req,res)
+    HotelControllerHandler.getRoomTypeByID(req,res)
 )
 
 router.delete('/delete-roomtype/:id', (req, res)=> 
     HotelControllerHandler.deleteRoomType(req, res)
 )
+
+// router.get('/get-roomtypebyn/:name', (req, res) => 
+//     HotelControllerHandler.getRoomTypeByName(req, res)
+// )
+
+//room reservation ends
+router.post('/create-roomreservation', (req, res)=> 
+    HotelControllerHandler.createRoomReservation(req, res)
+)
+
+router.get('/get-roomreservation', (req, res)=> 
+    HotelControllerHandler.getRoomReservations(req, res)
+)
+
+router.get('/get-reservedrooms', (req, res)=> 
+    HotelControllerHandler.getReservedRooms(req, res)
+)
+
+router.get('/get-unreservedrooms', (req, res)=> 
+    HotelControllerHandler.getUnreservedRooms(req, res)
+)
+
 
 module.exports = router;

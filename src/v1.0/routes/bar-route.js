@@ -16,7 +16,7 @@ router.get('/get-purchaseditem/:id', (req, res) =>
     BarControllerHandler.getPurchasedItem(req, res)
 )
 
-router.delete('/delete-purchaseditem', (req, res) => 
+router.delete('/delete-purchaseditem/:id', (req, res) => 
     BarControllerHandler.deletePurchasedItem(req, res)
 )
 

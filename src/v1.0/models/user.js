@@ -31,5 +31,16 @@ module.exports = (sequelize, Sequelize) => {
         }
       }
     });
+
+    User.associate = (models) => {
+      User.hasMany(models.RoomType, {
+        foreignKey: {
+          name: 'userId',
+          allowNull: false
+      },
+      as: 'roomtype'
+      })
+    }
+
     return User;
   };
