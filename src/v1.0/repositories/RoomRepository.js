@@ -9,6 +9,10 @@ const RoomRepository = () => {
         return Room.findOne({ where: {name: name} })
     }
 
+    const findRoomByNumber = async (number) => {
+        return Room.findOne({ where: {number: number} })
+    }
+
     const findAllRooms = async() => {
         return Room.findAll()
     }
@@ -68,6 +72,7 @@ const RoomRepository = () => {
 
     return {
         findRoomByName,
+        findRoomByNumber,
         findAllRooms,
         findRoom,
         deleteRoom,
@@ -78,7 +83,7 @@ const RoomRepository = () => {
         findAllRoomReservations,
         findRoomReservationbyID,
         findReservedRooms,
-        findUnreservedRooms
+        findUnreservedRooms,
     }
 }
 

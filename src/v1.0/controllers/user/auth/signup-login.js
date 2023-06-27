@@ -24,6 +24,7 @@ exports.loginUser = async (req, res) => {
             const token = jwt.sign({"id":user._id, "email":user.email }, JWT_SECRET)
             res.status(200).send({
                 userid: user._id,
+                user_role: user.role,
                 token: token,
                 message: "login successful",
             });
