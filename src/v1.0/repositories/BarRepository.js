@@ -1,12 +1,12 @@
 const db = require("../models");
+const BarStockSale = db.BarItemSale
 const BarStockItem = db.BarStockItem;
 
 const BarRepository = () => {
     // purchased items
     const findBarItemSaleByID = async (id) => {
-        return BarStockItem.findOne({ where: {
-            id: id,
-            status: "Purchased"
+        return BarStockSale.findOne({ where: {
+            id: id
         } 
         })
     } 
@@ -28,7 +28,7 @@ const BarRepository = () => {
     }
 
     const findAllPurchasedItems = async () => {
-        return BarStockItem.findAll({ where:{status:"Purchased"} })
+        return BarStockSale.findAll()
     }
 
     const findAllBarItemSales = async () => {

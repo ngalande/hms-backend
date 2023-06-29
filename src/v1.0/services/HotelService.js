@@ -1,4 +1,5 @@
 const db = require('../models');
+const RestaurantRepository = require('../repositories/RestaurantRepository');
 const Room = db.room
 const RoomType = db.roomtype
 const RoomReservation = db.roomreservation
@@ -96,8 +97,30 @@ const HotelService = () => {
     }
 
     //room reservation ends
-    const addRoomReservation = async(Data) => {
-        await RoomReservation.create(Data)
+    const addRoomReservation = async(id, Data) => {
+        const roomreservation = await RoomRepository.findUnreservedRoomByID(id)
+
+        const {duration, phone, amount} = Data
+        if(!purchaseitem){
+            throw new Error('Not Found')
+        }
+
+        const RoomPayload = {
+            status: "BOOKED"
+        }
+
+        const ReservationPayload = {
+            room_id: roomreservation.id,
+            number: roomreservation.number,
+            name: roomreservation.name,
+            room_type: roomreservation.room_type,
+            duration: duration,
+            phone: phone,
+            amount: amount
+        }
+        
+        Room.update(RoomPayload, { where: {id: id}})
+        RoomReservation.create(ReservationPayload)
     }
 
     const getRoomReservation = async(req, res) => {

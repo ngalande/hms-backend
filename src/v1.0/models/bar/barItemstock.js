@@ -8,7 +8,8 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
           },
         item_name: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
         item_quantity: {
             type: DataTypes.INTEGER

@@ -37,7 +37,7 @@ const BarService = () => {
     }
 
     const getPurchasedItems = async (req, res) => {
-        const purchaseditems = await BarRepository.findAllBarItemSales()
+        const purchaseditems = await BarRepository.findAllPurchasedItems()
         if(!purchaseditems){
             throw new Error("No Purchased Items")
         }

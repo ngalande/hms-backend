@@ -1,6 +1,7 @@
 // import db config, model, repository
 const db = require("../models");
 const Restaurant = db.RestaurantStockItem;
+const RestaurantSale = db.RestaurantSale;
 const ResaurantRepository = require("../repositories/RestaurantRepository");
 
 // service function
@@ -8,13 +9,33 @@ const ResaurantService = () => {
     const PurchaseItem = async (id, Data) => {
         const purchaseitem = await ResaurantRepository.findRetailStockItemByID(id);
 
+        const initial_quantity = purchaseitem?.item_quantity
+        const {item_quantity} = Data
+
+        if(initial_quantity < item_quantity){
+            throw new Error("Initial quantity has to be more the Item quantity")
+        }
+
+        const final_quantity = initial_quantity - item_quantity
+
         if(!purchaseitem){
             throw new Error('Not Found')
         }
 
+        const payload = {
+            item_quantity: final_quantity,
+        }
+
+        const sales_payload = {
+            item_id: purchaseitem.id,
+            item_name: purchaseitem.item_name,
+            item_quantity: item_quantity,
+            item_price: purchaseitem.item_price
+        }
+
         purchaseitem.status = "Purchased"
-        console.log(purchaseitem)
-        Restaurant.create(Data)
+        Restaurant.update(payload, { where:{id: id}})
+        RestaurantSale.create(sales_payload)
     }
 
     const getPurchasedItems = async () => {

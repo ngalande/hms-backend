@@ -7,26 +7,29 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
+        room_id:{
+            type: DataTypes.STRING
+        },
+        number: {
+            type: Sequelize.INTEGER
+        },
         username: {
             type: DataTypes.STRING
         },
         email: {
             type: DataTypes.STRING
         },
-        roomtype: {
+        room_type: {
             type: DataTypes.STRING //link from roomtype
         },
         duration: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         phone: {
             type: DataTypes.INTEGER
         },
-        status: {
-            type: DataTypes.ENUM, //link from room 
-            values: ['BOOKED', 'RESERVED', 'UNRESERVED'],
-            allowNull: false,
-            defaultValue: 'UNRESERVED'
+        amount: {
+            type: DataTypes.INTEGER
         }
     })
 

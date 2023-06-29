@@ -57,11 +57,22 @@ const RoomRepository = () => {
     }
 
     const findRoomReservationbyID = async(id) => {
-        return RoomReservation.findOne({ where:{id: id}})
+        return RoomReservation.findOne({ where:{
+            id: id,
+            status:"RESERVED"
+        }})
     }
 
     const findReservedRooms = async() => {
-        return RoomReservation.findAll({ where:{status:"RESERVED"} })
+        return Room.findAll({ where:{status:"RESERVED"} })
+    }
+
+    const findUnreservedRoomByID = async(id) => {
+        return RoomReservation.findOne({ where: {
+            id: id,
+            status:"UNRESERVED"
+        } 
+    })
     }
 
     const findUnreservedRooms = async() => {
@@ -82,6 +93,7 @@ const RoomRepository = () => {
         deleteRoomType,
         findAllRoomReservations,
         findRoomReservationbyID,
+        findUnreservedRoomByID,
         findReservedRooms,
         findUnreservedRooms,
     }

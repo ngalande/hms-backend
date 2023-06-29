@@ -9,13 +9,14 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         name: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
-        type: {
-            type: Sequelize.STRING //from room type
+        room_type: {
+            type: DataTypes.STRING //from room type
         },
         number: {
-            type: Sequelize.INTEGER
+            type: DataTypes.INTEGER,
+            unique: true
         },
         price: {
             type: DataTypes.INTEGER

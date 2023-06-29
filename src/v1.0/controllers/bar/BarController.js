@@ -18,7 +18,7 @@ const BarController = (serviceContainer) => {
 
     const getPurchasedItems = async(req, res) => {
         try {
-            const purchaseditems = serviceContainer.barservice.getPurchasedItems();
+            const purchaseditems = await serviceContainer.barservice.getPurchasedItems();
             if(purchaseditems.length < 1) {
                 throw new Error("No purchased items")
             }
