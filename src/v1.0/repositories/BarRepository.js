@@ -1,23 +1,73 @@
 const db = require("../models");
-const Bar = db.BarItemSale
+const BarStockItem = db.BarStockItem;
 
 const BarRepository = () => {
+    // purchased items
     const findBarItemSaleByID = async (id) => {
-        return Bar.findOne({ where: {id: id} })
+        return BarStockItem.findOne({ where: {
+            id: id,
+            status: "Purchased"
+        } 
+        })
+    } 
+
+    // stock item with the status Retail
+    const findRetailStockItemByID = async(id) => {
+        return BarStockItem.findOne({ where:{
+            id: id,
+            status: "Retail"
+        }})
+    }
+
+    // stock item with the status Retail and update
+    const updateRetailStockItemByID = async(id, Data) => {
+        return BarStockItem.update(Data, { where:{
+            id: id,
+            status: "Retail"
+        }})
+    }
+
+    const findAllPurchasedItems = async () => {
+        return BarStockItem.findAll({ where:{status:"Purchased"} })
     }
 
     const findAllBarItemSales = async () => {
-        return Bar.findAll()
+        return BarStockItem.findAll({ where: {status: "Purchased"} })
     }
 
     const deleteBarItemSale = async (id) => {
-        return Bar.Destroy({ where: {id: id} })
+        return BarStockItem.destroy({ where: {
+            id: id,
+            status: "Purchased"
+        }})
+    }
+
+    //stock
+    //find stock item by id
+    const findStockItemByID = async (id) => {
+        return BarStockItem.findOne({ where: {id: id} })
+    }
+
+    //find stock items
+    const findAllStockItems = async () => {
+        return BarStockItem.findAll()
+    }
+
+    //delete stock items
+    const deleteStockItem = async (id) => {
+        return BarStockItem.destroy({ where: {id: id} })
     }
 
     return {
         findBarItemSaleByID,
         findAllBarItemSales,
-        deleteBarItemSale
+        deleteBarItemSale,
+        findStockItemByID,
+        findAllStockItems,
+        deleteStockItem,
+        findAllPurchasedItems,
+        findRetailStockItemByID,
+        updateRetailStockItemByID
     }
 }
 

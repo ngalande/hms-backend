@@ -4,7 +4,27 @@ const ServiceContainer = require('../services');
 const BarController = require('../controllers/bar/BarController');
 const BarControllerHandler = BarController(ServiceContainer);
 
-router.post('/purchase-item', (req, res) => 
+//create stock
+router.post('/create-stockitem', (req, res) => 
+    BarControllerHandler.createStockItem(req, res)
+)
+
+//get all stock
+router.get('/get-stockitems', (req, res) =>
+    BarControllerHandler.getAllStockItems(req, res)
+)
+
+//get single stock
+router.get('/get-stockitem/:id', (req, res) => 
+    BarControllerHandler.getStockItemByID(req, res)
+)
+
+//delete stock entry
+router.delete('/delete-stockitem/:id', (req, res) => 
+    BarControllerHandler.deleteStockItem(req, res)
+)
+
+router.post('/purchase-item/:id', (req, res) => 
     BarControllerHandler.purchaseItem(req, res)
 )
 

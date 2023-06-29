@@ -7,6 +7,12 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
           },
+        item_name: {
+            type: DataTypes.STRING(100),
+        },
+        item_id: {
+            type: DataTypes.STRING(256),
+        },
         item_quantity: {
             type: DataTypes.INTEGER
         },

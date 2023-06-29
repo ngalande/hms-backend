@@ -25,6 +25,7 @@ const db = require("./src/v1.0/models")
 const users = require("./src/v1.0/routes/user-route");
 const hotels = require("./src/v1.0/routes/hotel-route");
 const bar = require("./src/v1.0/routes/bar-route");
+const restaurant = require("./src/v1.0/routes/restaurant-route");
 
 
 
@@ -59,7 +60,7 @@ app.use(cors({
 //         .catch(err => console.log(err));
 
 //database config
-db.sequelize.sync()
+db.sequelize.sync({force: true})
     .then(() => console.log("Database connected.."))
     .catch(err => console.log('Error: '+ err))
 
@@ -70,6 +71,7 @@ db.sequelize.sync()
 app.use('/api/v2/user', users)
 app.use('/api/v2/hotel', hotels)
 app.use('/api/v2/bar', bar)
+app.use('/api/v2/restaurant', restaurant)
 
 //starting port 
 port = process.env.PORT;
