@@ -99,8 +99,9 @@ const HotelService = () => {
     //room reservation ends
     const addRoomReservation = async(id, Data) => {
         const roomreservation = await RoomRepository.findUnreservedRoomByID(id)
+        const status = roomreservation.status
 
-        const {duration, phone, amount} = Data
+        const {username, duration, phone, amount, email} = Data
         if(!purchaseitem){
             throw new Error('Not Found')
         }
@@ -114,12 +115,15 @@ const HotelService = () => {
             number: roomreservation.number,
             name: roomreservation.name,
             room_type: roomreservation.room_type,
+            username: username,
             duration: duration,
             phone: phone,
-            amount: amount
+            amount: amount,
+            email: email
         }
         
         Room.update(RoomPayload, { where: {id: id}})
+        console.log(ReservationPayload)
         RoomReservation.create(ReservationPayload)
     }
 

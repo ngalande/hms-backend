@@ -44,7 +44,7 @@ router.delete('/delete-roomtype/:id', (req, res)=>
 // )
 
 //room reservation ends
-router.post('/create-roomreservation', (req, res)=> 
+router.post('/create-roomreservation/:id', (req, res)=> 
     HotelControllerHandler.createRoomReservation(req, res)
 )
 

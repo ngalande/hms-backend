@@ -1,4 +1,5 @@
 const db = require("../models");
+const RestaurantSale = db.RestaurantSale;
 const RestaurantStockItem = db.RestaurantStockItem;
 
 //function containing crud operations
@@ -18,24 +19,22 @@ const ResaurantRepository = () => {
 
     //single sold stock item
     const findStockSaleByID = async (id) => {
-        return RestaurantStockItem.findOne({ where: {
-            id: id,
-            status:"Purchased"
+        return RestaurantSale.findOne({ where: {
+            id: id
         }})
     }
 
 
     //delete sold stock ite,
     const deleteStockSaleByID = async (id) => {
-        return RestaurantStockItem.findOne({ where: {
-            id: id,
-            status:"Purchased"
+        return RestaurantSale.destroy({ where: {
+            id: id
         }})
     }
 
     //find all purchased stock items
     const findAllPurchasedItems = async () => {
-        return RestaurantStockItem.findAll({ where: {status: "Purchased"}})
+        return RestaurantSale.findAll()
     }
 
     //find restaurant stock item by ID

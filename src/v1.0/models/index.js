@@ -24,6 +24,6 @@ db.roomtype = require("./rooms/roomType")(sequelize, Sequelize);
 db.roomreservation = require("./rooms/roomReservation")(sequelize, Sequelize);
 db.BarStockItem = require("./bar/barItemstock")(sequelize, Sequelize);
 db.BarItemSale = require("./bar/baritemsale")(sequelize, Sequelize);
-db.RestaurantSale = require("./restaurant/restaurantitemsale")
+db.RestaurantSale = require("./restaurant/restaurantitemsale")(sequelize, Sequelize);
 db.RestaurantStockItem = require("./restaurant/restaurantitemstock")(sequelize, Sequelize);
 module.exports = db;

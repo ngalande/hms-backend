@@ -2,12 +2,12 @@
 const db = require("../models");
 const Restaurant = db.RestaurantStockItem;
 const RestaurantSale = db.RestaurantSale;
-const ResaurantRepository = require("../repositories/RestaurantRepository");
+const RestaurantRepository = require("../repositories/RestaurantRepository");
 
 // service function
 const ResaurantService = () => {
     const PurchaseItem = async (id, Data) => {
-        const purchaseitem = await ResaurantRepository.findRetailStockItemByID(id);
+        const purchaseitem = await RestaurantRepository.findRetailStockItemByID(id);
 
         const initial_quantity = purchaseitem?.item_quantity
         const {item_quantity} = Data
@@ -38,10 +38,9 @@ const ResaurantService = () => {
         RestaurantSale.create(sales_payload)
     }
 
-    const getPurchasedItems = async () => {
-        const purchasedItems = await ResaurantRepository.findAllBarItemSales()
-
-        if(purchasedItems.length < 1){
+    const getPurchasedItems = async (req, res) => {
+        const purchasedItems = await RestaurantRepository.findAllPurchasedItems()
+        if(!purchasedItems){
             throw new Error("No Purchased Items")
         }
 
@@ -49,7 +48,7 @@ const ResaurantService = () => {
     }
 
     const getPurchasedItem = async (id) => {
-        const purchasedItem = await ResaurantRepository.findBarItemSaleByID(id)
+        const purchasedItem = await RestaurantRepository.findStockSaleByID(id)
 
         if(!purchasedItem){
             throw new Error("Item not found")
@@ -59,7 +58,7 @@ const ResaurantService = () => {
     }
 
     const deletePurchasedItem = async (id) => {
-        const purchasedItem = await ResaurantRepository.deleteBarItemSale(id)
+        const purchasedItem = await RestaurantRepository.deleteStockSaleByID(id)
 
         if(!purchasedItem) {
             throw new Error("Item not found")
@@ -70,12 +69,12 @@ const ResaurantService = () => {
     //stock 
     //add stock
     const addStockItem = async (Data) => {
-        await ItemStock.create(Data);
+        await Restaurant.create(Data);
     }
 
     //get stock items
     const getStockItems = async() => {
-        const getstockitems = await ResaurantRepository.findAllStockItems();
+        const getstockitems = await RestaurantRepository.findAllStockItems();
         
         if(getstockitems.length < 1){
             throw new Error("No Stock Items")
@@ -86,7 +85,7 @@ const ResaurantService = () => {
 
     //get stock
     const getStockItem = async(id) => {
-        const getstockitem = await ResaurantRepository.findStockItemByID(id);
+        const getstockitem = await RestaurantRepository.findStockItemByID(id);
 
         if(!getstockitem){
             throw new Error("Stock Item not found")
@@ -96,7 +95,7 @@ const ResaurantService = () => {
 
     //delete stock items
     const deleteStockItem = async(id) => {
-        const stockitem = await ResaurantRepository.deleteStockItem(id)
+        const stockitem = await RestaurantRepository.deleteStockItem(id)
 
         if(!stockitem){
             throw new Error("Stock Item not found")

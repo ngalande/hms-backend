@@ -2,7 +2,7 @@ const RestaurantController = (serviceContainer) => {
     const purchaseItem = async(req, res) => {
         let id = req.params.id;
         try {
-            let purchaseditem = serviceContainer.resaurantservice.PurchaseItem(id, req.body)
+            let purchaseditem = serviceContainer.restaurantservice.PurchaseItem(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Item successfully purchased!`,
@@ -18,8 +18,8 @@ const RestaurantController = (serviceContainer) => {
 
     const getPurchasedItems = async(req, res) => {
         try {
-            const purchaseditems = serviceContainer.resaurantservice.getPurchasedItems();
-            if(purchaseditems < 1) {
+            const purchaseditems = await serviceContainer.restaurantservice.getPurchasedItems();
+            if(purchaseditems.length < 1) {
                 throw new Error("No purchased items")
             }
             return res.status(200).send(purchaseditems)
@@ -35,7 +35,7 @@ const RestaurantController = (serviceContainer) => {
     const getPurchasedItem = async(req, res) => {
         let id = req.params.id;
         try {
-            const purchasedItemid = await serviceContainer.resaurantservice.getPurchasedItem(id);
+            const purchasedItemid = await serviceContainer.restaurantservice.getPurchasedItem(id);
             if(!purchasedItemid){
                 throw new Error("Item not found")
             }
@@ -52,7 +52,7 @@ const RestaurantController = (serviceContainer) => {
     const deletePurchasedItem = async(req, res) => {
         let id = req.params.id;
         try {
-            await serviceContainer.resaurantservice.deletePurchasedItem(id)
+            await serviceContainer.restaurantservice.deletePurchasedItem(id)
             return res.status(200).send({
                 success: true,
                 message: `Purchased Item deleted!`
@@ -70,7 +70,7 @@ const RestaurantController = (serviceContainer) => {
     //add stock
     const createStockItem = async(req, res) => {
         try {
-            const newstockitem = await serviceContainer.resaurantservice.addStockItem(req.body)
+            const newstockitem = await serviceContainer.restaurantservice.addStockItem(req.body)
             return res.status(201).json({
                 success: true,
                 message: `Stock successfully Created`,
@@ -87,7 +87,7 @@ const RestaurantController = (serviceContainer) => {
     //list all stock entries
     const getAllStockItems = async(req, res) => {
         try {
-            const getstockitems = await serviceContainer.resaurantservice.getStockItems();
+            const getstockitems = await serviceContainer.restaurantservice.getStockItems();
             if(getstockitems.length < 1){
                 throw new Error("No stock items")
             }
@@ -104,7 +104,7 @@ const RestaurantController = (serviceContainer) => {
     const getStockItemByID = async(req, res) => {
         let id = req.params.id;
         try {
-            const getstockitem = await serviceContainer.resaurantservice.getStockItem(id);
+            const getstockitem = await serviceContainer.restaurantservice.getStockItem(id);
             return res.status(200).send(getstockitem);
         } catch (error) {
             return res.status(400).json({
@@ -120,7 +120,7 @@ const RestaurantController = (serviceContainer) => {
     const deleteStockItem = async(req, res) => {
         let id = req.params.id;
         try {
-           await serviceContainer.resaurantservice.deleteStockItem(id);
+           await serviceContainer.restaurantservice.deleteStockItem(id);
            return res.status(200).send({
             success: true,
             message: `Stock Item deleted!`
@@ -129,7 +129,7 @@ const RestaurantController = (serviceContainer) => {
             return res.status(400).json({
                 success: false,
                 error:error.message,
-                message: `Room doesn't exist`
+                message: `Stock Item doesn't exist`
             })
         }
     }

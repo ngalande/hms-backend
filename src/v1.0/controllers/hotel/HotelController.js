@@ -145,8 +145,9 @@ const HotelController = (serviceContainer) => {
 
     //room reservation
     const createRoomReservation = async(req, res) => {
+        let id = req.params
         try {
-            const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(req.body)
+            const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Room Reservation successfully Created`,
