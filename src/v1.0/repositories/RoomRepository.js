@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 const Room = db.room
 const RoomType = db.roomtype
@@ -57,20 +58,16 @@ const RoomRepository = () => {
     }
 
     const findRoomReservationbyID = async(id) => {
-        return RoomReservation.findOne({ where:{
-            id: id,
-            status:"RESERVED"
-        }})
+        return RoomReservation.findOne({ where:{ room_id: id} })
     }
 
     const findReservedRooms = async() => {
-        return Room.findAll({ where:{status:"RESERVED"} })
+        return RoomReservation.findAll({ where:{ [Op.or]: [ {status:"RESERVED"}, {status:"BOOKED"}]} })
     }
 
     const findUnreservedRoomByID = async(id) => {
-        return RoomReservation.findOne({ where: {
-            id: id,
-            status:"UNRESERVED"
+        return Room.findOne({ where: {
+            id: id
         } 
     })
     }

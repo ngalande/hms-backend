@@ -59,6 +59,9 @@ router.get('/get-reservedrooms', (req, res)=>
 router.get('/get-unreservedrooms', (req, res)=> 
     HotelControllerHandler.getUnreservedRooms(req, res)
 )
+router.put('/update-roomreservation/:id', (req, res)=> 
+    HotelControllerHandler.updateRoomReservation(req, res)
+)
 
 
 module.exports = router;

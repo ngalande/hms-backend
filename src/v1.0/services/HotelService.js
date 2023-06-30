@@ -43,9 +43,6 @@ const HotelService = () => {
         return room
     }
 
-    const updateRoom = async() => {
-        
-    }
 
     //roomtype
     const addRoomType = async(Data) => {
@@ -99,15 +96,19 @@ const HotelService = () => {
     //room reservation ends
     const addRoomReservation = async(id, Data) => {
         const roomreservation = await RoomRepository.findUnreservedRoomByID(id)
-        const status = roomreservation.status
-
-        const {username, duration, phone, amount, email} = Data
-        if(!purchaseitem){
+        if(!roomreservation){
             throw new Error('Not Found')
         }
+        const roomStatus = roomreservation.status
+        if(roomStatus == 'BOOKED' || roomStatus == 'RESERVED'){
+            console.log('first')
+            throw new Error('Room already booked')
+        }
+        // console.log(roomreservation)
+        const {username, duration, phone, email, status} = Data
 
         const RoomPayload = {
-            status: "BOOKED"
+            status: status
         }
 
         const ReservationPayload = {
@@ -118,15 +119,29 @@ const HotelService = () => {
             username: username,
             duration: duration,
             phone: phone,
-            amount: amount,
-            email: email
+            amount: roomreservation.price,
+            email: email,
+            status: status
         }
         
         Room.update(RoomPayload, { where: {id: id}})
-        console.log(ReservationPayload)
+        // console.log(ReservationPayload)
         RoomReservation.create(ReservationPayload)
     }
 
+    const updateRoomReservation = async(id, Data) => {
+        const roomreserved = await RoomRepository.findRoomReservationbyID(id)
+        if(!roomreserved){
+            throw new Error('Not Found')
+        }
+        const {status} = Data
+        const RoomReservationPayload = {
+            status: status
+        }
+        RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})
+        Room.update(RoomReservationPayload, { where: {id: id}})
+
+    }
     const getRoomReservation = async(req, res) => {
         const roomreservations = await RoomRepository.findAllRoomReservations();
         if(!roomreservations){
@@ -167,7 +182,8 @@ const HotelService = () => {
         addRoomReservation,
         getRoomReservation,
         getReservedRooms,
-        getUnreservedRooms
+        getUnreservedRooms,
+        updateRoomReservation
     }
 }
 

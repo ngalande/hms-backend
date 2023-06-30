@@ -145,7 +145,7 @@ const HotelController = (serviceContainer) => {
 
     //room reservation
     const createRoomReservation = async(req, res) => {
-        let id = req.params
+        let id = req.params.id
         try {
             const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(id, req.body)
             return res.status(201).json({
@@ -161,6 +161,22 @@ const HotelController = (serviceContainer) => {
         }
     }
 
+    const updateRoomReservation = async(req,res) => {
+        let id = req.params.id
+        try {
+            const updateroomreservation = await serviceContainer.hotelservice.updateRoomReservation(id, req.body)
+            return res.status(201).json({
+                success: true,
+                message: `Room Reservation successfully Updated`,
+                data: updateroomreservation
+            })
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
     const getRoomReservations = async(req, res) => {
         try {
             const roomreservations = await serviceContainer.hotelservice.getRoomReservation();
@@ -220,7 +236,8 @@ const HotelController = (serviceContainer) => {
         createRoomReservation,
         getRoomReservations,
         getReservedRooms,
-        getUnreservedRooms
+        getUnreservedRooms,
+        updateRoomReservation
     }
 }
 
