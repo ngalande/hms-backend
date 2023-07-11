@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
         amount: {
             type: DataTypes.INTEGER
         },
+        net_amount : {
+            type: DataTypes.INTEGER 
+        },
         status: {
             type: DataTypes.ENUM, //link from room 
             values: ['BOOKED', 'RESERVED', 'UNRESERVED'],

@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         item_price : {
             type: DataTypes.INTEGER
+        },
+        net_amount : {
+            type: DataTypes.INTEGER 
         }
     })
     return BarItemSale

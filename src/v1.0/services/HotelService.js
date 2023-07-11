@@ -100,12 +100,15 @@ const HotelService = () => {
             throw new Error('Not Found')
         }
         const roomStatus = roomreservation.status
-        if(roomStatus == 'BOOKED' || roomStatus == 'RESERVED'){
-            console.log('first')
+        if(roomStatus == 'BOOKED'){
             throw new Error('Room already booked')
+        } else if( roomStatus == 'RESERVED'){
+            throw new Error('Room already reserved')
         }
+
+
         // console.log(roomreservation)
-        const {username, duration, phone, email, status} = Data
+        const {username, duration, phone, email, status, net_amount} = Data
 
         const RoomPayload = {
             status: status
@@ -119,7 +122,8 @@ const HotelService = () => {
             username: username,
             duration: duration,
             phone: phone,
-            amount: roomreservation.price,
+            amount: roomreservation.amount,
+            net_amount: net_amount,
             email: email,
             status: status
         }

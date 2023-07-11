@@ -8,11 +8,11 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         room_type_name: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         number: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
         price: { 
             type: DataTypes.INTEGER

@@ -9,17 +9,27 @@ const BarService = () => {
         // console.log(purchaseitem)
         const initial_quantity = purchaseitem?.item_quantity
         const {item_quantity} = Data
-
-        if(initial_quantity < item_quantity){
-            throw new Error("Initial quantity has to be more the Item quantity")
-        }
-
+        console.log(item_quantity)
         const final_quantity = initial_quantity - item_quantity
         
-        if(!purchaseitem){
-            throw new Error('Not Found')
+        if(1 < 2){
+            return Error('blah')
         }
 
+        
+        // if(final_quantity <= 0 ){
+        //     // const final_status = "OutOfStock"
+        //     const status_payload = {
+        //         status: "OutOfStock"
+        //     }
+        //     Bar.update(status_payload, {where:{id: id}})
+        // }
+        
+        // const itemstatus = purchaseitem.status
+        // if(itemstatus == 'OutOfStock'){
+        //     throw new Error('Not Found - Out of stock')
+        // }
+        
         const payload = {
             item_quantity: final_quantity,
         }
@@ -31,7 +41,6 @@ const BarService = () => {
             item_price: purchaseitem.item_price
         }
 
-        purchaseitem.status = "Purchased"
         Bar.update(payload, { where:{id: id}})
         BarSale.create(sales_payload)
     }
