@@ -1,8 +1,9 @@
 const HotelController = (serviceContainer) => {
     const createRoom = async (req, res) => {
+        let id = req.params.id;
         // room ends
         try {
-            const room = await serviceContainer.hotelservice.addRoom(req.body)
+            const room = await serviceContainer.hotelservice.addRoom(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Room successfully Created`,
@@ -207,6 +208,21 @@ const HotelController = (serviceContainer) => {
         }
     }
 
+    const getReservedRoom = async (req, res) => {
+        try {
+            const reservedroom = await serviceContainer.hotelservice.getReservedRoom(req.params.id)
+            if(reservedroom.length < 1){
+                throw new Error(" Reserved room not found")
+            }
+            return res.status(200).send(reservedroom)
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
+
     const getUnreservedRooms = async (req, res) => {
         try {
             const unreservedrooms = await serviceContainer.hotelservice.getUnreservedRooms()
@@ -252,6 +268,7 @@ const HotelController = (serviceContainer) => {
         deleteRoomType,
         createRoomReservation,
         getRoomReservations,
+        getReservedRoom,
         getReservedRooms,
         getUnreservedRooms,
         updateRoomReservation,

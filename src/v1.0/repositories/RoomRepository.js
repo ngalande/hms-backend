@@ -81,7 +81,7 @@ const RoomRepository = () => {
     }
 
     const deleteReservedRoom = async(id) => {
-        return RoomReservation.findOne({where: {
+        return RoomReservation.destroy({where: {
             id: id
         }})
     }

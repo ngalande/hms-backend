@@ -5,7 +5,7 @@ const HotelController = require('../controllers/hotel/HotelController');
 const HotelControllerHandler = HotelController(ServiceContainer);
 
 //room ends
-router.post('/create-room', (req, res) => 
+router.post('/create-room/:id', (req, res) => 
     HotelControllerHandler.createRoom(req, res)
 )
 
@@ -52,10 +52,14 @@ router.get('/get-roomreservation', (req, res)=>
     HotelControllerHandler.getRoomReservations(req, res)
 )
 
+
+router.get('/get-reservedroom/:id', (req, res)=> 
+HotelControllerHandler.getReservedRoom(req, res)
+)
+
 router.get('/get-reservedrooms', (req, res)=> 
     HotelControllerHandler.getReservedRooms(req, res)
 )
-
 router.get('/get-unreservedrooms', (req, res)=> 
     HotelControllerHandler.getUnreservedRooms(req, res)
 )

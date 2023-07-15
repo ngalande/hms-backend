@@ -8,7 +8,7 @@ const RoomRepository = require('../repositories/RoomRepository')
 const HotelService = () => {
     //room section
     const addRoom = async (id, Data) => {
-        const {number} = Data;
+        const {name, number, room_type, capacity, status, amount} = Data;
 
         //check if the room already exists
         const roomtype = await RoomRepository.findRoomTypeByID(id)
@@ -18,12 +18,16 @@ const HotelService = () => {
         }
 
         const room_payload = {
+            name: name,
+            room_type_id: roomtype.id,
+            room_type: room_type,
             number: number,
             amount: amount,
-            capacity
+            capacity: capacity,
+            status: status
         }
 
-        await  Room.create(Data)
+        await  Room.create(room_payload)
     }
 
     const getRooms = async () => {
@@ -105,7 +109,7 @@ const HotelService = () => {
     const addRoomReservation = async(id, Data) => {
         const roomreservation = await RoomRepository.findUnreservedRoomByID(id)
         if(!roomreservation){
-            throw new Error('Not Found')
+            throw new Error('Room not Not Found')
         }
         const roomStatus = roomreservation.status
         if(roomStatus == 'BOOKED'){
@@ -144,7 +148,7 @@ const HotelService = () => {
     const updateRoomReservation = async(id, Data) => {
         const roomreserved = await RoomRepository.findRoomReservationbyID(id)
         if(!roomreserved){
-            throw new Error('Not Found')
+            throw new Error('Room Not Found')
         }
         const {status} = Data
         const RoomReservationPayload = {
@@ -152,8 +156,8 @@ const HotelService = () => {
         }
         RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})
         Room.update(RoomReservationPayload, { where: {id: id}})
-
     }
+    
     const getRoomReservation = async(req, res) => {
         const roomreservations = await RoomRepository.findAllRoomReservations();
         if(!roomreservations){
@@ -167,6 +171,15 @@ const HotelService = () => {
         const reservedrooms = await RoomRepository.findReservedRooms();
         if(!reservedrooms){
             throw new Error("No Reserved rooms")
+        }
+
+        return reservedrooms
+    }
+
+    const getReservedRoom = async(id) => {
+        const reservedrooms = await RoomRepository.findRoomReservationbyID(id);
+        if(!reservedrooms){
+            throw new Error("Reserved room not found")
         }
 
         return reservedrooms
@@ -202,6 +215,7 @@ const HotelService = () => {
         addRoomReservation,
         getRoomReservation,
         getReservedRooms,
+        getReservedRoom,
         getUnreservedRooms,
         updateRoomReservation,
         deleteReservedRoom
