@@ -11,8 +11,11 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: DataTypes.STRING
         },
-        room_type: {
+        room_type_id: {
             type: DataTypes.STRING //from room type
+        },
+        room_type: {
+            type: DataTypes.STRING //from room type 
         },
         number: {
             type: DataTypes.INTEGER,

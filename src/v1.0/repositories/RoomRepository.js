@@ -23,7 +23,7 @@ const RoomRepository = () => {
     }
 
     const deleteRoom = async (id) => {
-        return Room.Destroy({ where:{id: id} })
+        return Room.destroy({ where:{id: id} })
     }
 
     const updateRoom = async () => {
@@ -33,6 +33,10 @@ const RoomRepository = () => {
     //room type section
     const findRoomTypeByName = async(room_type_name) => {
         return RoomType.findOne({ where: {room_type_name: room_type_name }})
+    }
+
+    const findRoomTypeByNumber = async(number) => {
+        return RoomType.findOne({ where: {number: number }})
     }
 
     const findAllRoomTypes = async() => {
@@ -76,7 +80,11 @@ const RoomRepository = () => {
         return RoomReservation.findAll({ where:{status:"UNRESERVED"} })
     }
 
-
+    const deleteReservedRoom = async(id) => {
+        return RoomReservation.findOne({where: {
+            id: id
+        }})
+    }
 
     return {
         findRoomByName,
@@ -93,6 +101,8 @@ const RoomRepository = () => {
         findUnreservedRoomByID,
         findReservedRooms,
         findUnreservedRooms,
+        findRoomTypeByNumber,
+        deleteReservedRoom
     }
 }
 

@@ -8,7 +8,7 @@ const BarService = () => {
         const  purchaseitem = await BarRepository.findRetailStockItemByID(id);
         // console.log(purchaseitem)
         const initial_quantity = purchaseitem?.item_quantity
-        const {item_quantity} = Data
+        const {item_quantity, net_amount} = Data
         console.log(item_quantity)
         const final_quantity = initial_quantity - item_quantity
         
@@ -38,7 +38,8 @@ const BarService = () => {
             item_id: purchaseitem.id,
             item_name: purchaseitem.item_name,
             item_quantity: item_quantity,
-            item_price: purchaseitem.item_price
+            item_price: purchaseitem.item_price,
+            net_amount: net_amount
         }
 
         Bar.update(payload, { where:{id: id}})

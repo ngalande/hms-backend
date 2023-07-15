@@ -63,5 +63,9 @@ router.put('/update-roomreservation/:id', (req, res)=>
     HotelControllerHandler.updateRoomReservation(req, res)
 )
 
+router.delete('/delete-reservedroom/:id', (req, res) => 
+    HotelControllerHandler.deleteReservedRoom(req, res)
+)
+
 
 module.exports = router;

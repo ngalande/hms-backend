@@ -222,6 +222,23 @@ const HotelController = (serviceContainer) => {
         }
     }
 
+    const deleteReservedRoom = async(req, res) => {
+        let id = req.params.id;
+        try {
+            await serviceContainer.hotelservice.deleteReservedRoom(id)
+            return res.status(200).send({
+                success: true,
+                message: `Reserved room deleted!`
+            })
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message,
+                message: `Reserved room doesn't exist`
+            })
+        }
+    }
+
 
     return {
         createRoom,
@@ -237,7 +254,8 @@ const HotelController = (serviceContainer) => {
         getRoomReservations,
         getReservedRooms,
         getUnreservedRooms,
-        updateRoomReservation
+        updateRoomReservation,
+        deleteReservedRoom
     }
 }
 

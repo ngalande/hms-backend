@@ -10,7 +10,7 @@ const ResaurantService = () => {
         const purchaseitem = await RestaurantRepository.findRetailStockItemByID(id);
 
         const initial_quantity = purchaseitem?.item_quantity
-        const {item_quantity} = Data
+        const {item_quantity, net_amount} = Data
 
         if(initial_quantity < item_quantity){
             throw new Error("Initial quantity has to be more the Item quantity")
@@ -30,7 +30,8 @@ const ResaurantService = () => {
             item_id: purchaseitem.id,
             item_name: purchaseitem.item_name,
             item_quantity: item_quantity,
-            item_price: purchaseitem.item_price
+            item_price: purchaseitem.item_price,
+            net_amount: net_amount
         }
 
         purchaseitem.status = "Purchased"

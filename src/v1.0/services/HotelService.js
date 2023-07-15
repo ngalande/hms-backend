@@ -7,13 +7,20 @@ const RoomRepository = require('../repositories/RoomRepository')
 
 const HotelService = () => {
     //room section
-    const addRoom = async (Data) => {
-        const {name} = Data;
+    const addRoom = async (id, Data) => {
+        const {number} = Data;
 
         //check if the room already exists
-        const roomExists = await RoomRepository.findRoomByName(name);
+        const roomtype = await RoomRepository.findRoomTypeByID(id)
+        const roomExists = await RoomRepository.findRoomByNumber(number);
         if(roomExists){
             throw new Error("Room already exists")
+        }
+
+        const room_payload = {
+            number: number,
+            amount: amount,
+            capacity
         }
 
         await  Room.create(Data)
@@ -46,11 +53,12 @@ const HotelService = () => {
 
     //roomtype
     const addRoomType = async(Data) => {
-        const {room_type_name} = Data;
+        const { number} = Data;
 
         //check if room type already exists
-        const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
-        if(roomTypeExists) {
+        const roomTypeExistsByNumber = await RoomRepository.findRoomTypeByNumber(number)
+        // const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
+        if(roomTypeExistsByNumber) {
             throw new Error("Room Type Already exists")
         }
 
@@ -173,6 +181,14 @@ const HotelService = () => {
         return unreservedrooms
     }
 
+    const deleteReservedRoom = async(id) => {
+        const reservedroom = await RoomRepository.deleteReservedRoom(id);
+        if(!reservedroom) {
+            throw new Error("reserved room not found")
+        }
+        return reservedroom
+    }
+
     return{
         getRooms,
         addRoom,
@@ -187,7 +203,8 @@ const HotelService = () => {
         getRoomReservation,
         getReservedRooms,
         getUnreservedRooms,
-        updateRoomReservation
+        updateRoomReservation,
+        deleteReservedRoom
     }
 }
 

@@ -13,9 +13,6 @@ module.exports = (sequelize, Sequelize) => {
         number: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        price: { 
-            type: DataTypes.INTEGER
         }
     });
 
