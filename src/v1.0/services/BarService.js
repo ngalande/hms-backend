@@ -12,9 +12,9 @@ const BarService = () => {
         console.log(item_quantity)
         const final_quantity = initial_quantity - item_quantity
         
-        if(1 < 2){
-            return Error('blah')
-        }
+        // if(1 < 2){
+        //     return Error('blah')
+        // }
 
         
         // if(final_quantity <= 0 ){
