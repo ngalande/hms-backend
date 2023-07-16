@@ -18,11 +18,11 @@ const HotelService = () => {
         }
 
         const room_payload = {
-            name: name,
             room_type_id: roomtype.id,
+            amount: roomtype.amount,
+            name: name,
             room_type: room_type,
             number: number,
-            amount: amount,
             capacity: capacity,
             status: status
         }
@@ -57,12 +57,12 @@ const HotelService = () => {
 
     //roomtype
     const addRoomType = async(Data) => {
-        const { number} = Data;
+        const { room_type_name } = Data;
 
         //check if room type already exists
-        const roomTypeExistsByNumber = await RoomRepository.findRoomTypeByNumber(number)
-        // const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
-        if(roomTypeExistsByNumber) {
+        // const roomTypeExistsByNumber = await RoomRepository.findRoomTypeByNumber()
+        const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
+        if(roomTypeExists) {
             throw new Error("Room Type Already exists")
         }
 
@@ -120,7 +120,7 @@ const HotelService = () => {
 
 
         // console.log(roomreservation)
-        const {username, duration, phone, email, status, net_amount} = Data
+        const {username, duration, phone, email, status, paid_status, net_amount} = Data
 
         const RoomPayload = {
             status: status
@@ -131,13 +131,14 @@ const HotelService = () => {
             number: roomreservation.number,
             name: roomreservation.name,
             room_type: roomreservation.room_type,
+            amount: roomreservation.amount,
             username: username,
             duration: duration,
             phone: phone,
-            amount: roomreservation.amount,
             net_amount: net_amount,
             email: email,
-            status: status
+            status: status,
+            paid_status: paid_status
         }
         
         Room.update(RoomPayload, { where: {id: id}})

@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         room_type_name: {
             type: DataTypes.STRING
         },
-        number: {
+        amount: {
             type: DataTypes.INTEGER,
             allowNull: false
         }

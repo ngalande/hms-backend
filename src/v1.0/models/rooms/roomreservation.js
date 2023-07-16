@@ -39,6 +39,12 @@ module.exports = (sequelize, Sequelize) => {
             values: ['BOOKED', 'RESERVED', 'UNRESERVED'],
             allowNull: false,
             defaultValue: 'UNRESERVED'
+        },
+        paid_status: {
+            type: DataTypes.ENUM, //link from room 
+            values: ['NotPaid', 'Pending', 'Paid'],
+            allowNull: false,
+            defaultValue: 'Pending'
         }
     })
 
