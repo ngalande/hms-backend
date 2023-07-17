@@ -13,8 +13,8 @@ const HotelService = () => {
         //check if the room already exists
         const roomtype = await RoomRepository.findRoomTypeByID(id)
         const roomExists = await RoomRepository.findRoomByNumber(number);
-        if(roomtype){
-            throw new Error("Room already exists")
+        if(!roomtype){
+            throw new Error("Room does not exist")
         }
 
         const room_payload = {
