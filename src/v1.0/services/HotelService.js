@@ -14,7 +14,7 @@ const HotelService = () => {
         const roomtype = await RoomRepository.findRoomTypeByID(id)
         const roomExists = await RoomRepository.findRoomByNumber(number);
         if(!roomtype){
-            throw new Error("Room does not exist")
+            throw new Error("Roomtype does not exist")
         }
 
         const room_payload = {
