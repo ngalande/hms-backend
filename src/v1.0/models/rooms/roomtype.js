@@ -14,10 +14,12 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
+    }, {
+        paranoid: true
     });
 
     RoomType.associate = (models) => {
-        RoomType.belongs(models.User, {
+        RoomType.belongsTo(models.User, {
             foreignKey: {
                 name: 'userId',
                 allowNull: false

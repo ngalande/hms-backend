@@ -30,6 +30,8 @@ module.exports = (sequelize, Sequelize) => {
         this.setDataValue('password', hashedPassword);
         }
       }
+    }, {
+      paranoid: true
     });
 
     User.associate = (models) => {
