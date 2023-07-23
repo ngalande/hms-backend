@@ -10,13 +10,19 @@ module.exports = (sequelize, Sequelize) => {
         room_id:{
             type: DataTypes.STRING
         },
-        number: {
-            type: Sequelize.INTEGER
+        userId: {
+            type: DataTypes.STRING
         },
         username: {
             type: DataTypes.STRING
         },
-        email: {
+        customer_name: {
+            type: DataTypes.STRING
+        },
+        customer_phone_number: {
+            type: Sequelize.INTEGER
+        },
+        customer_email: {
             type: DataTypes.STRING
         },
         room_type: {
@@ -24,9 +30,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         duration: {
             type: DataTypes.STRING
-        },
-        phone: {
-            type: DataTypes.INTEGER
         },
         amount: {
             type: DataTypes.INTEGER

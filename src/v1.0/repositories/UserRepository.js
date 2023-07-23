@@ -11,8 +11,12 @@ const UserRepository = () => {
         return User.findAll()
     }
 
-    const findUser = async (id) => {
-        return User.findOne({ where: {id: id} })
+    const findUser = async (userid) => {
+        return User.findOne({ where: {id: userid} })
+    }
+
+    const findUserByID = async (id) => {
+        return User.findOne({ where: {id: id}})
     }
 
     const deleteUser = async (userid) => {
@@ -30,6 +34,7 @@ const UserRepository = () => {
         findUserByEmail,
         findAllUsers,
         findUser,
+        findUserByID,
         findUserPassword,
         deleteUser,
         findUserAndUpdate

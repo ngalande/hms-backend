@@ -37,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
     User.associate = (models) => {
       User.hasMany(models.RoomType, {
         foreignKey: {
-          name: 'userId',
+          name: 'id',
           allowNull: false
       },
       as: 'roomtype'
