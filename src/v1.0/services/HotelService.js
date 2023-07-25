@@ -215,6 +215,15 @@ const HotelService = () => {
         return unreservedrooms
     }
 
+    const getAllRoomReservations = async(req, res) => {
+        const allreservedrooms = await RoomRepository.findAllRoomReservations();
+        if(!allreservedrooms){
+            throw new Error("No Reserved rooms")
+        }
+
+        return allreservedrooms
+    }
+
     const deleteReservedRoom = async(id) => {
         const reservedroom = await RoomRepository.deleteReservedRoom(id);
         if(!reservedroom) {
@@ -239,6 +248,7 @@ const HotelService = () => {
         getReservedRoom,
         getUnreservedRooms,
         updateRoomReservation,
+        getAllRoomReservations,
         deleteReservedRoom
     }
 }

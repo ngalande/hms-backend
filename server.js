@@ -61,7 +61,7 @@ app.use(cors({
 //         .catch(err => console.log(err));
 
 //database config
-db.sequelize.sync({force:true})
+db.sequelize.sync()
     .then(() => console.log("Database connected.."))
     .catch(err => console.log('Error: '+ err))
 

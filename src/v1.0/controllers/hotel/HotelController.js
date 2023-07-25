@@ -226,6 +226,21 @@ const HotelController = (serviceContainer) => {
         }
     }
 
+    const getAllRoomReservations = async(req, res) => {
+        try {
+            const allreservedrooms = await serviceContainer.hotelservice.getAllRoomReservations();
+            if(allreservedrooms.length < 1){
+                throw new Error("No room reservations found")
+            }
+            return res.status(200).send(allreservedrooms)
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error:error.message
+            })
+        }
+    }
+
     const getUnreservedRooms = async (req, res) => {
         try {
             const unreservedrooms = await serviceContainer.hotelservice.getUnreservedRooms()
@@ -275,6 +290,7 @@ const HotelController = (serviceContainer) => {
         getReservedRooms,
         getUnreservedRooms,
         updateRoomReservation,
+        getAllRoomReservations,
         deleteReservedRoom
     }
 }

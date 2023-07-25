@@ -52,6 +52,10 @@ router.get('/get-roomreservations', (req, res)=>
     HotelControllerHandler.getRoomReservations(req, res)
 )
 
+router.get('/get-allreservations', (req, res)=> 
+    HotelControllerHandler.getAllRoomReservations(req, res)
+)
+
 
 router.get('/get-reservedroom/:id', (req, res)=> 
 HotelControllerHandler.getReservedRoom(req, res)
