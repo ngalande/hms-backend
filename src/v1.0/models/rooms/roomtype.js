@@ -8,10 +8,12 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         userId: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         username: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         room_type_name: {
             type: DataTypes.STRING

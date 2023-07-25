@@ -5,7 +5,7 @@ const HotelController = require('../controllers/hotel/HotelController');
 const HotelControllerHandler = HotelController(ServiceContainer);
 
 //room ends
-router.post('/create-room/:userid/:id', (req, res) => 
+router.post('/create-room/:id', (req, res) => 
     HotelControllerHandler.createRoom(req, res)
 )
 
@@ -22,7 +22,7 @@ router.delete('/delete-room/:id', (req, res) =>
 )
 
 //room type ends
-router.post('/create-roomtype/:userid', (req, res) => 
+router.post('/create-roomtype', (req, res) => 
     HotelControllerHandler.createRoomType(req, res)
 )
 
@@ -44,7 +44,7 @@ router.delete('/delete-roomtype/:id', (req, res)=>
 // )
 
 //room reservation ends
-router.post('/create-roomreservation/:userid/:id', (req, res)=> 
+router.post('/create-roomreservation/:id', (req, res)=> 
     HotelControllerHandler.createRoomReservation(req, res)
 )
 

@@ -8,11 +8,11 @@ const UserRepository = require('../repositories/UserRepository');
 
 const HotelService = () => {
     //room section
-    const addRoom = async (id, userid, Data) => {
+    const addRoom = async (id, Data) => {
         const {name, number, room_type, capacity, status, amount} = Data;
 
         //user validation... must be receptionist
-        const usertype = await UserRepository.findUser(userid)
+        // const usertype = await UserRepository.findUser(userid)
 
         //check if the room already exists
         const roomtype = await RoomRepository.findRoomTypeByID(id)
@@ -22,8 +22,8 @@ const HotelService = () => {
         }
 
         const room_payload = {
-            userId: usertype.id,
-            username: usertype.username,
+            // userId: usertype.id,
+            // username: usertype.username,
             room_type_id: roomtype.id,
             amount: roomtype.amount,
             name: name,
@@ -62,12 +62,12 @@ const HotelService = () => {
 
 
     //roomtype
-    const addRoomType = async(userid, Data) => {
+    const addRoomType = async(Data) => {
         const { room_type_name, amount } = Data;
 
         //check if room type already exists
         // const roomTypeExistsByNumber = await RoomRepository.findRoomTypeByNumber()
-        const usertype = await UserRepository.findUser(userid)
+        // const usertype = await UserRepository.findUser(userid)
     
         const roomTypeExists = await RoomRepository.findRoomTypeByName(room_type_name);
         if(roomTypeExists) {
@@ -77,8 +77,8 @@ const HotelService = () => {
         const roomtypepayload = {
             room_type_name: room_type_name,
             amount: amount,
-            userId: usertype.id,
-            username: usertype.username,
+            // userId: usertype.id,
+            // username: usertype.username,
         }
 
         await RoomType.create(roomtypepayload)
@@ -121,14 +121,14 @@ const HotelService = () => {
     }
 
     //room reservation ends
-    const addRoomReservation = async(id, userid, Data) => {
+    const addRoomReservation = async(id, Data) => {
         const roomreservation = await RoomRepository.findUnreservedRoomByID(id)
         if(!roomreservation){
             throw new Error('Room not Not Found')
         }
 
         //user validation... must be receptionist
-        const usertype = await UserRepository.findUser(userid)
+        // const usertype = await UserRepository.findUser(userid)
         
 
         const roomStatus = roomreservation.status
@@ -147,10 +147,10 @@ const HotelService = () => {
         }
 
         const ReservationPayload = {
-            userId: usertype.id,
+            // userId: usertype.id,
             room_id: roomreservation.id,
             room_type: roomreservation.room_type,
-            username: usertype.username,
+            // username: usertype.username,
             customer_name: customer_name,
             customer_phone_number: customer_phone_number,
             customer_email: customer_email,

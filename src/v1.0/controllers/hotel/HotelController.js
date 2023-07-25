@@ -1,10 +1,10 @@
 const HotelController = (serviceContainer) => {
     const createRoom = async (req, res) => {
-        let userid = req.params.userid;
+        // let userid = req.params.userid;
         let id = req.params.id;
         // room ends
         try {
-            const room = await serviceContainer.hotelservice.addRoom(id, userid, req.body)
+            const room = await serviceContainer.hotelservice.addRoom(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Room successfully Created`,
@@ -70,10 +70,10 @@ const HotelController = (serviceContainer) => {
 
     //room type ends
     const createRoomType = async (req, res) => {
-        const id = req.params.userid
+        // const id = req.params.userid
         // room ends
         try {
-            const roomtype = await serviceContainer.hotelservice.addRoomType(id, req.body)
+            const roomtype = await serviceContainer.hotelservice.addRoomType(req.body)
             return res.status(201).json({
                 success: true,
                 message: `Room Type successfully Created`,
@@ -149,9 +149,9 @@ const HotelController = (serviceContainer) => {
     //room reservation
     const createRoomReservation = async(req, res) => {
         let id = req.params.id
-        let userid = req.params.userid;
+        // let userid = req.params.userid;
         try {
-            const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(id, userid, req.body)
+            const createroomreservation = await serviceContainer.hotelservice.addRoomReservation(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Room Reservation successfully Created`,

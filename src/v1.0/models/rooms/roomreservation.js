@@ -7,14 +7,13 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        room_id:{
-            type: DataTypes.STRING
-        },
         userId: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         username: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         customer_name: {
             type: DataTypes.STRING
