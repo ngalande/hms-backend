@@ -2,7 +2,7 @@ const BarController = (serviceContainer) => {
     const purchaseItem = async(req, res) => {
         let id = req.params.id;
         try {
-            let purchaseditem = serviceContainer.barservice.PurchaseItem(id, req.body)
+            let purchaseditem = await serviceContainer.barservice.PurchaseItem(id, req.body)
             return res.status(201).json({
                 success: true,
                 message: `Item successfully purchased!`,

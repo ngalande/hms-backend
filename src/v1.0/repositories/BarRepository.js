@@ -14,8 +14,7 @@ const BarRepository = () => {
     // stock item with the status Retail
     const findRetailStockItemByID = async(id) => {
         return BarStockItem.findOne({ where:{
-            id: id,
-            status: "Retail"
+            id: id
         }})
     }
 
