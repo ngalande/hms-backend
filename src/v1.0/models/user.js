@@ -30,12 +30,14 @@ module.exports = (sequelize, Sequelize) => {
         this.setDataValue('password', hashedPassword);
         }
       }
+    }, {
+      paranoid: true
     });
 
     User.associate = (models) => {
       User.hasMany(models.RoomType, {
         foreignKey: {
-          name: 'userId',
+          name: 'id',
           allowNull: false
       },
       as: 'roomtype'

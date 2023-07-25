@@ -47,6 +47,10 @@ const UserService = () => {
         return user
    }
 
+   const getUserOperations = async(userid) => {
+    
+   }
+
    const deleteUser = async (userid) => {
         const user = await UserRepository.deleteUser(userid);
         if(!user) {

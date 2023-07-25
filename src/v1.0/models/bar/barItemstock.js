@@ -6,7 +6,13 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.UUID,
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
-          },
+        },
+        userId: {
+            type: DataTypes.STRING
+        },
+        username: {
+            type: DataTypes.STRING
+        },
         item_name: {
             type: DataTypes.STRING,
             unique: true
@@ -16,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         item_price : {
             type: DataTypes.INTEGER
+        },
+        net_amount : {
+            type: DataTypes.INTEGER 
         },
         availabilty: {
             type: DataTypes.ENUM, //link from room 
