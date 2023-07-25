@@ -19,7 +19,7 @@ const BarService = () => {
             Bar.update(payload, { where:{id: id}})
         }
         if(item_quantity > initial_quantity){
-            throw new Error('Stock Quantity is less than the requested quantity')
+            throw new Error('Stock Quantity is less than the requested quantity or maybe OutOfStock')
         }
         const final_quantity = initial_quantity - item_quantity
         
