@@ -4,8 +4,8 @@ require('dotenv').config();
 const { DATABASE, USERNAME, PASSWORD, HOST, DB_PORT} = process.env;
 module.exports = 
   {
-    username: 'pappi',
-    password: '12345678',
+    username: USERNAME,
+    password: PASSWORD,
     database: "hotel",
     host: HOST,
     port: DB_PORT,
