@@ -8,19 +8,25 @@ const RestaurantRepository = require("../repositories/RestaurantRepository");
 const ResaurantService = () => {
     const PurchaseItem = async (id, Data) => {
         const purchaseitem = await RestaurantRepository.findRetailStockItemByID(id);
-
+        
+        if(!purchaseitem){
+            throw new Error('Stock Not Found')
+        }
         const initial_quantity = purchaseitem?.item_quantity
         const {item_quantity, net_amount} = Data
 
-        if(initial_quantity < item_quantity){
-            throw new Error("Initial quantity has to be more the Item quantity")
+        if(initial_quantity == 0){
+            const payload = {
+                availabilty: 'OutOfStock',
+            }
+            Restaurant.update(payload, { where:{id: id}})
+        }
+        if(item_quantity > initial_quantity){
+            throw new Error('Stock Quantity is less than the requested quantity')
         }
 
         const final_quantity = initial_quantity - item_quantity
 
-        if(!purchaseitem){
-            throw new Error('Not Found')
-        }
 
         const payload = {
             item_quantity: final_quantity,

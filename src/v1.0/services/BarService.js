@@ -6,10 +6,21 @@ const BarRepository = require('../repositories/BarRepository');
 const BarService = () => {
     const PurchaseItem = async (id, Data) => {
         const  purchaseitem = await BarRepository.findRetailStockItemByID(id);
-        // console.log(purchaseitem)
+        if(!purchaseitem){
+            throw new Error('Stock Not Found')
+        }
         const initial_quantity = purchaseitem?.item_quantity
         const {item_quantity, net_amount} = Data
         console.log(item_quantity)
+        if(initial_quantity == 0){
+            const payload = {
+                availabilty: 'OutOfStock',
+            }
+            Bar.update(payload, { where:{id: id}})
+        }
+        if(item_quantity > initial_quantity){
+            throw new Error('Stock Quantity is less than the requested quantity')
+        }
         const final_quantity = initial_quantity - item_quantity
         
         // if(1 < 2){
@@ -41,6 +52,7 @@ const BarService = () => {
             item_price: purchaseitem.item_price,
             net_amount: net_amount
         }
+        console.log(sales_payload)
 
         Bar.update(payload, { where:{id: id}})
         BarSale.create(sales_payload)
