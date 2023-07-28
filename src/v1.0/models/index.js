@@ -26,4 +26,6 @@ db.BarStockItem = require("./bar/barItemstock")(sequelize, Sequelize);
 db.BarItemSale = require("./bar/baritemsale")(sequelize, Sequelize);
 db.RestaurantSale = require("./restaurant/restaurantitemsale")(sequelize, Sequelize);
 db.RestaurantStockItem = require("./restaurant/restaurantitemstock")(sequelize, Sequelize);
+db.Hire = require("./hire/hire")(sequelize, Sequelize);
+db.HireStock = require("./hire/hirestock")(sequelize, Sequelize);
 module.exports = db;

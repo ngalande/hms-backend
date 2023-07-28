@@ -141,7 +141,7 @@ const HotelService = () => {
 
         // console.log(roomreservation)
         const {duration, phone, status, paid_status, net_amount, customer_phone_number, customer_name, customer_email} = Data
-
+        
         const RoomPayload = {
             status: status
         }
@@ -158,7 +158,7 @@ const HotelService = () => {
             duration: duration,
             net_amount: net_amount,
             status: status,
-            paid_status: paid_status
+            paid_status: "Paid"
         }
         
         Room.update(RoomPayload, { where: {id: id}})
@@ -168,15 +168,18 @@ const HotelService = () => {
 
     const updateRoomReservation = async(id, Data) => {
         const roomreserved = await RoomRepository.findRoomReservationbyID(id)
+        const {status, paid_status} = Data
         if(!roomreserved){
             throw new Error('Room Not Found')
+        } else{
+            const RoomReservationPayload = {
+                status: status,
+                paid_status:  paid_status
+            } 
+
+            Room.update(RoomReservationPayload, { where: {id: id}})
+            RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})
         }
-        const {status} = Data
-        const RoomReservationPayload = {
-            status: status
-        }
-        RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})
-        Room.update(RoomReservationPayload, { where: {id: id}})
     }
     
     const getRoomReservation = async(req, res) => {
