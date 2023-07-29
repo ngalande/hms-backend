@@ -3,6 +3,7 @@ const HotelService = require('./HotelService')
 const BarService = require('./BarService')
 const RestaurantService = require('./RestaurantService')
 const HireService = require("./HireService")
+const ExpenseService = require("./ExpenseService")
 
 const ServiceContainer = () => {
     return {
@@ -10,7 +11,8 @@ const ServiceContainer = () => {
         hotelservice : HotelService(),
         barservice : BarService(),
         restaurantservice : RestaurantService(),
-        hireservice : HireService()
+        hireservice : HireService(),
+        expenseservice : ExpenseService()
     }
 }
 
