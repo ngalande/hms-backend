@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING(256),
         },
         amount: {
-            type: DataTypes.STRING(256),
+            type: DataTypes.INTEGER(256),
         }
     })
     return Expense
