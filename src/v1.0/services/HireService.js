@@ -13,7 +13,7 @@ const HireService = () => {
         }
 
         const initial_quantity = hireitem?.item_quantity
-        const { item_quantity, description, net_amount, duration, status } = Data
+        const { item_quantity, description, net_amount, duration, status, customer_name, customer_email, customer_phone_number } = Data
 
         if(initial_quantity == 0){
             const payload = {
@@ -38,6 +38,9 @@ const HireService = () => {
             item_name: hireitem.item_name,
             item_quantity: hireitem.item_quantity,
             item_price: hireitem.item_price,
+            customer_name: customer_name,
+            customer_phone_number: customer_phone_number,
+            customer_email: customer_email,
             net_amount: net_amount,
             description: description,
             duration: duration,

@@ -24,6 +24,15 @@ module.exports =(sequelize, Sequelize) => {
         item_quantity: {
             type: DataTypes.INTEGER
         },
+        customer_name: {
+            type: DataTypes.STRING
+        },
+        customer_phone_number: {
+            type: DataTypes.INTEGER
+        },
+        customer_email: {
+            type: DataTypes.STRING
+        },
         description: {
             type: DataTypes.STRING
         },
