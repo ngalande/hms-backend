@@ -24,9 +24,6 @@ module.exports = (sequelize, Sequelize) => {
         item_price : {
             type: DataTypes.INTEGER
         },
-        net_amount : {
-            type: DataTypes.INTEGER 
-        },
         availabilty: {
             type: DataTypes.ENUM, //link from room 
             values: ['InStock', 'OutOfStock', 'Ordered'],
