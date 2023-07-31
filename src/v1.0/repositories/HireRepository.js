@@ -7,20 +7,11 @@ const HireStock = db.HireStock;
 const HireRepository = () => {
     // stock part
     const findAllDehiredStock = async() => {
-        return HireStock.findAll({
-            where: {
-                status: "Dehired"
-            }
-        })
+        return HireStock.findAll()
     }
 
     const findDeHiredStockByID = async(id) => {
-        return HireStock.findOne({
-            where:{
-                id: id,
-                status: "DeHired"
-            }
-        })
+        return HireStock.findOne()
     }
 
     const findStockItemByID = async(id) => {
@@ -37,22 +28,13 @@ const HireRepository = () => {
 
     
     const findAllPendingStock = async() => {
-        return HireStock.findAll({
-            where: {
-                status: "Pending"
-            }
-        })
+        return HireStock.findAll()
     }
 
 
     
     const findPendingStockByID = async(id) => {
-        return HireStock.findOne({
-            where:{
-                id: id,
-                status: "Pending"
-            }
-        })
+        return HireStock.findOne()
     }
 
     const deleteStockItem = async (id) => {
@@ -70,11 +52,7 @@ const HireRepository = () => {
     }
 
     const findAllHiredStockItems = async() => {
-        return Hire.findAll({ 
-            where:{
-                status:"Hired"
-            }
-        })
+        return Hire.findAll()
     }
 
     const findAllHiredStock = async() => {

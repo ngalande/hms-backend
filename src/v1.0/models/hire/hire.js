@@ -45,12 +45,12 @@ module.exports =(sequelize, Sequelize) => {
         duration: {
             type: DataTypes.INTEGER
         },
-        status: {
-            type: DataTypes.ENUM, //link from room 
-            values: ['Hired', 'DeHired', 'Pending'],
-            allowNull: false,
-            defaultValue: 'DeHired'
-        }
+        // status: {
+        //     type: DataTypes.ENUM, //link from room 
+        //     values: ['Hired', 'DeHired', 'Pending'],
+        //     allowNull: false,
+        //     defaultValue: 'DeHired'
+        // }
     })
     return Hire;
 }

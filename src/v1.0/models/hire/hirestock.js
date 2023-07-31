@@ -30,12 +30,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: 'InStock'
         },
-        status: {
-            type: DataTypes.ENUM, //link from room 
-            values: ['Hired', 'DeHired', 'Pending'],
-            allowNull: false,
-            defaultValue: 'DeHired'
-        }
+        // status: {
+        //     type: DataTypes.ENUM, //link from room 
+        //     values: ['Hired', 'DeHired', 'Pending'],
+        //     allowNull: false,
+        //     defaultValue: 'DeHired'
+        // }
     })
     return HireStock;
 }
