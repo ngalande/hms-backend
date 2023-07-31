@@ -30,7 +30,7 @@ const HireService = () => {
 
         const payload = {
             item_quantity: final_quantity,
-            status: "Hired"
+            // status: "Hired"
         }
 
         const hire_payload = {
@@ -47,7 +47,7 @@ const HireService = () => {
             status: "Hired"
         }
 
-        // HireStock.update(payload, { where:{id: id}})
+        HireStock.update(payload, { where:{id: id}})
         Hire.create(hire_payload)
     }
 
