@@ -198,7 +198,8 @@ const HotelService = () => {
             } 
     
             Room.update(RoomReservationPayload, { where: {id: id}})
-            RoomReservation.update(cancelled_payload, { where: {room_id: id}})  
+            RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})  
+            RoomReservation.create(cancelled_payload)
 
         }
 
