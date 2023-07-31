@@ -36,7 +36,7 @@ const HireService = () => {
         const hire_payload = {
             item_id: hireitem.id,
             item_name: hireitem.item_name,
-            item_quantity: hireitem.item_quantity,
+            item_quantity: item_quantity,
             item_price: hireitem.item_price,
             customer_name: customer_name,
             customer_phone_number: customer_phone_number,
