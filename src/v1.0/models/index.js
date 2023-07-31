@@ -29,4 +29,5 @@ db.RestaurantStockItem = require("./restaurant/restaurantitemstock")(sequelize, 
 db.Hire = require("./hire/hire")(sequelize, Sequelize);
 db.HireStock = require("./hire/hirestock")(sequelize, Sequelize);
 db.Expense = require("./expenditure/expense")(sequelize, Sequelize);
+db.Expenditure = require("./expenditure/expenditure")(sequelize, Sequelize);
 module.exports = db;

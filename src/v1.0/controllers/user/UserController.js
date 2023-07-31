@@ -59,13 +59,10 @@ const UserController = (serviceContainer) => {
     }
 
     const updateUser = async (req, res) => {
-        const userid = req.params.id;
-        const username = req.body.username;
-        const email = req.body.email;
-        const phone = req.body.phone;
+        const id = req.params.id
 
         try {
-            const user = await serviceContainer.userservice.updateUser(userid, username, email, phone)
+            const user = await serviceContainer.userservice.updateUser(id, req.body)
             return res.status(200).json({
                 success: true,
                 message: `User successfully updated`,

@@ -59,11 +59,13 @@ const UserService = () => {
         return user
    }
 
-   const updateUser = async (userid, username, email, phone) => {
-        const user = await UserRepository.findUserAndUpdate(userid, username, email,phone );
+   const updateUser = async (id, Data) => {
+        const user = await UserRepository.findUserByID(id)
         if(!user) {
             throw new Error("User not found")
         }
+
+        await User.update(Data, { where: {id: id}})
    }
 
    return{

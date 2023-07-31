@@ -129,7 +129,7 @@ const BarController = (serviceContainer) => {
             return res.status(400).json({
                 success: false,
                 error:error.message,
-                message: `Room doesn't exist`
+                message: `Stock doesn't exist`
             })
         }
     }

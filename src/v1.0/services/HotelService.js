@@ -168,18 +168,40 @@ const HotelService = () => {
 
     const updateRoomReservation = async(id, Data) => {
         const roomreserved = await RoomRepository.findRoomReservationbyID(id)
+        const roomStatus = roomreserved?.status //room status
+        const room_net_amount = roomreserved?.net_amount //reservation net_amount
+        const final_amount = room_net_amount * -1
+
         const {status, paid_status} = Data
         if(!roomreserved){
             throw new Error('Room Not Found')
-        } else{
+        } 
+
+        if(roomStatus == "BOOKED"){
+            const cancelled_payload = {
+                room_id: roomreserved.id,
+                room_type: roomreserved.room_type,
+                // username: usertype.username,
+                customer_name: roomreserved.customer_name,
+                customer_phone_number: roomreserved.customer_phone_number,
+                customer_email: roomreserved.customer_email,
+                amount: roomreserved.amount,
+                duration: roomreserved.duration,
+                net_amount: final_amount,
+                status: status,
+                paid_status: paid_status
+            }
+
             const RoomReservationPayload = {
                 status: status,
                 paid_status:  paid_status
             } 
-
+    
             Room.update(RoomReservationPayload, { where: {id: id}})
-            RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})
+            RoomReservation.update(cancelled_payload, { where: {room_id: id}})  
+
         }
+
     }
     
     const getRoomReservation = async(req, res) => {
