@@ -47,7 +47,7 @@ const HireService = () => {
             status: "Hired"
         }
 
-        HireStock.update(payload, { where:{id: id}})
+        // HireStock.update(payload, { where:{id: id}})
         Hire.create(hire_payload)
     }
 
