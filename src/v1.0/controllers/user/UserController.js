@@ -42,9 +42,9 @@ const UserController = (serviceContainer) => {
     }
 
     const deleteUser = async (req, res) => {
-        const userid = req.params.id;
+        const id = req.params.id;
         try {
-            await serviceContainer.userservice.deleteUser(userid);
+            await serviceContainer.userservice.deleteUser(id);
             return res.status(200).send({
                 success: true,
                 message: `User deleted!`

@@ -11,16 +11,16 @@ const UserRepository = () => {
         return User.findAll()
     }
 
-    const findUser = async (userid) => {
-        return User.findOne({ where: {id: userid} })
+    const findUser = async (id) => {
+        return User.findOne({ where: {id: id} })
     }
 
     const findUserByID = async (id) => {
         return User.findOne({ where: {id: id}})
     }
 
-    const deleteUser = async (userid) => {
-        return User.destroy({ where:{id: userid}})
+    const deleteUser = async (id) => {
+        return User.destroy({ where:{id: id}})
     }
 
     const findUserPassword = async(password) => {

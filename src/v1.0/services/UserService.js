@@ -39,8 +39,8 @@ const UserService = () => {
        return users
    }
 
-   const getUser = async (userid) => {
-        const user = await  UserRepository.findUser(userid);
+   const getUser = async (id) => {
+        const user = await  UserRepository.findUser(id);
         if(!user) {
             throw new Error(" User not found ")
         }
@@ -51,8 +51,8 @@ const UserService = () => {
     
    }
 
-   const deleteUser = async (userid) => {
-        const user = await UserRepository.deleteUser(userid);
+   const deleteUser = async (id) => {
+        const user = await UserRepository.deleteUser(id);
         if(!user) {
             throw new Error(" User not found ")
         }
