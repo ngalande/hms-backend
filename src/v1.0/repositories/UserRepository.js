@@ -20,7 +20,7 @@ const UserRepository = () => {
     }
 
     const deleteUser = async (id) => {
-        return User.destroy({ where:{id: id}})
+        return User.destroy({ where:{id: id}, force: true})
     }
 
     const findUserPassword = async(password) => {

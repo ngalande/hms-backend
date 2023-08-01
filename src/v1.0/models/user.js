@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
         }
       }
     }, {
-      paranoid: true
+        timestamps: false, 
     });
 
     User.associate = (models) => {

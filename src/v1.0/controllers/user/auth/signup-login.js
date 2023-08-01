@@ -39,7 +39,6 @@ exports.loginUser = async (req, res) => {
 exports.createUser = async (req, res) => {
     try{
         const { username, email, password, role } = req.body;
-        console.log(email)
 
         const userExists = await User.findOne({ where: { email: email } })
         if (userExists){
