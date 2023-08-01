@@ -67,7 +67,7 @@ db.sequelize.sync()
     .then(() => console.log("Database connected.."))
     .catch(err => console.log('Error: '+ err))
 
-//configuring routes to be accessed by client
+// configuring routes to be accessed by client
 // app.use('/api/v1/user', users);
 // app.use('/api/v1/hotel', hotel)
 

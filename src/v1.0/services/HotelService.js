@@ -177,7 +177,7 @@ const HotelService = () => {
             throw new Error('Room Not Found')
         } 
 
-        if(roomStatus == "BOOKED"){
+        if(roomStatus == "BOOKED" ){
             const cancelled_payload = {
                 room_id: roomreserved.id,
                 room_type: roomreserved.room_type,
@@ -201,6 +201,30 @@ const HotelService = () => {
             RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})  
             RoomReservation.create(cancelled_payload)
 
+        } else if (roomStatus == "RESERVED"){
+            const cancelled_payload = {
+                room_id: roomreserved.id,
+                room_type: roomreserved.room_type,
+                // username: usertype.username,
+                customer_name: roomreserved.customer_name,
+                customer_phone_number: roomreserved.customer_phone_number,
+                customer_email: roomreserved.customer_email,
+                amount: roomreserved.amount,
+                duration: roomreserved.duration,
+                net_amount: final_amount,
+                status: status,
+                paid_status: paid_status
+            }
+            
+            const RoomReservationPayload = {
+                status: status,
+                net_amount: 0,
+                paid_status:  paid_status
+            } 
+    
+            Room.update(RoomReservationPayload, { where: {id: id}})
+            RoomReservation.update(RoomReservationPayload, { where: {room_id: id}})  
+            RoomReservation.create(cancelled_payload)
         }
 
     }

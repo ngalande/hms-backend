@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
+        room_type_id: {
+            type: DataTypes.STRING //from room type
+        },
         userId: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -18,9 +21,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         name: {
             type: DataTypes.STRING
-        },
-        room_type_id: {
-            type: DataTypes.STRING //from room type
         },
         room_type: {
             type: DataTypes.STRING //from room type 
