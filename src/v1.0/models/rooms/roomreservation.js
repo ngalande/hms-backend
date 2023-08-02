@@ -46,6 +46,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: 'UNRESERVED'
         },
+        cancelled_status: {
+            type: DataTypes.ENUM, //link from room 
+            values: ['Cancelled', 'NotCancelled'],
+            allowNull: false,
+            defaultValue: 'NotCancelled'
+        },
         paid_status: {
             type: DataTypes.ENUM, //link from room 
             values: ['NotPaid', 'Pending', 'Paid'],
