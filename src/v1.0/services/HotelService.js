@@ -211,7 +211,7 @@ const HotelService = () => {
                 customer_email: roomreserved.customer_email,
                 amount: roomreserved.amount,
                 duration: roomreserved.duration,
-                net_amount: final_amount,
+                net_amount: 0,
                 status: status,
                 paid_status: paid_status
             }
