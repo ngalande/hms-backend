@@ -52,6 +52,10 @@ app.use(cors({
     }
 ));
 
+app.get("/", (req, res) => {
+    res.send("<h2>nothing!</h2>");
+})
+
 //db connections
 // db = process.env.DB
 
