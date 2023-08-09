@@ -7,16 +7,20 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+      - ./init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
     env_file:
       - ./.env
+    
   
-  db:
+  postgres:
     image: postgres
     ports:
       - "5432:5432"
     restart: always
     environment:
       - POSTGRES_PASSWORD=wagwan@2002
-      - POSTGRES_DB=hotels
+      - POSTGRES_DB=hotel
       # - DATABASE_URL: postgres://postgres:wagwan@2002@127.0.0.1:5432/hotels 
       - POSTGRES_HOST=127.0.0.1
+  
+  

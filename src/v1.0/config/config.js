@@ -6,6 +6,7 @@ module.exports =
   {
     username: USERNAME,
     password: PASSWORD,
+    host: HOST,
     database: "hotel",
     // host: 'localhost',
     port: DB_PORT,
