@@ -62,7 +62,7 @@ const RoomRepository = () => {
     }
 
     const findRoomReservationbyID = async(id) => {
-        return RoomReservation.findOne({ where:{ room_id: id} })
+        return RoomReservation.findOne({ where:{ id: id} })
     }
 
     const findReservedRooms = async() => {
