@@ -1,3 +1,3 @@
-const API = "https://api.hotels.samwaku.com/api/v2/"
+const API = "http://localhost:5001/api/v2/"
 
 export {API}
