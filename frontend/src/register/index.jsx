@@ -104,12 +104,12 @@ export default function Register() {
                   alt="logo"
                   width="200px"
                   height="200px"
-                  src={require('../assets/images/icon.png')}
+                  src={require('../assets/images/logo.png')}
                   style={{ cursor: "pointer", borderRadius: "50%", }}
                 />
                 {/* <h2 className="fw-bold mb-5 text-uppercase text-center">Tokpay</h2> */}
                 {/* <br></br> */}
-                <div className="mb-3">
+                <div className="mb-3 mt-3">
                 <p className=" mb-3 text-start">Welcome! Please register an account</p>
                   <Form onSubmit={handleRegister}>
                     <Form.Group className="mb-3 text-start" controlId="formBasicEmail">
@@ -151,9 +151,8 @@ export default function Register() {
                       >
                         <option>Select User Role</option>
                         {/* <option value="admin">Admin</option> */}
-                        <option value="Receptionist">Reception</option>
-                        <option value="Bar attendant">Bar Attendant</option>
-                        <option value="Restaurant Manager">Restaurant Manager</option>
+                        <option value="ADMIN">ADMIN</option>
+
                       </Form.Control>
 
                     </Form.Group>
