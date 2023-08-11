@@ -1,9 +1,20 @@
 version: '3.8'
 services:
-  hms-app:
+  hms-app-frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+
+  hms-app-backend:
     build: .
     ports:
-      - "5000:5001"
+      - "5001:5001"
     volumes:
       - ./:/app
       - /app/node_modules

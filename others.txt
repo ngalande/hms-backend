@@ -1,0 +1,6 @@
+"start": "concurrently \"npm run server\" \"npm run client\"",
+"postinstall": "cd frontend && npm install",
+"server": "nodemon server.js",
+"client": "cd frontend && npm start",
+"postinstall": "cd frontend && npm install",
+"client": "cd frontend && npm start",
