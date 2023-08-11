@@ -42,16 +42,22 @@ export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
  
   const register = async (email, username, password, role) => {
+    setLoading(true)
     const payload = {
       "email": email,
-      "password": password
+      "password": password,
+      username: username,
+      role: role
     }
-    axios.post(API+'user/login', payload)
+    axios.post(API+'user/register', payload)
       .then(res => {
-        alert('User')
-        console.log(res.data)
+        alert(res.data?.message)
+        // console.log(res.data)
+        setLoading(false)
+        navigate("login");
         // re
       }).catch(e => {
+        setLoading(false)
         console.log(e)
       })
   }
