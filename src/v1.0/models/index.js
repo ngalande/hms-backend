@@ -1,10 +1,12 @@
 // const db = require("../config/config");
 const dbconfig = require("../config/config");
 const Sequelize = require("sequelize");
+require('dotenv').config();
 
+const { DATABASE, USERNAME, PASSWORD, HOST, DB_PORT} = process.env;
+console.log(PASSWORD)
 
-const sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password, {
-    host: dbconfig.host,
+const sequelize = new Sequelize("postgres://postgres:1234@localhost/hotel", {
     dialect: dbconfig.dialect,
     operatorAliases: false,
     pool: {
@@ -13,7 +15,19 @@ const sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.p
         acquire: dbconfig.pool.acquire,
         idle: dbconfig.pool.idle
     }
+  // anything else you want to pass
 })
+// const sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password, {
+//     host: dbconfig.host,
+//     dialect: dbconfig.dialect,
+//     operatorAliases: false,
+//     pool: {
+//         max: dbconfig.pool.max,
+//         min: dbconfig.pool.min,
+//         acquire: dbconfig.pool.acquire,
+//         idle: dbconfig.pool.idle
+//     }
+// })
 
 const db ={}
 db.Sequelize = Sequelize;
