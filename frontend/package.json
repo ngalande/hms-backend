@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,7 +45,6 @@
     "react-icons": "^4.7.1",
     "react-pro-sidebar": "1.0.0-alpha.7",
     "react-router-dom": "6.4.3",
-    "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "reactjs-popup": "^2.0.5",
     "web-vitals": "^2.1.4",
@@ -67,5 +67,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.4",
+    "vite": "^4.4.9"
   }
 }

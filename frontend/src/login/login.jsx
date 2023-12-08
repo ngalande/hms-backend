@@ -5,7 +5,7 @@ import { Button as Btn } from "@mui/material";
 import Bounce from "react-activity/dist/Bounce";
 import AuthContext from "../components/shared/authContext";
 import { useCookies } from "react-cookie";
-
+import logo from '../assets/images/logo.png'
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
@@ -105,7 +105,7 @@ export default function Login() {
                   alt="logo"
                   width="200px"
                   height="200px"
-                  src={require('../assets/images/logo.png')}
+                  src={logo}
                   style={{ cursor: "pointer", borderRadius: "50%", }}
                 />
                 {/* <h2 className="fw-bold mb-5 text-uppercase text-center">Tokpay</h2> */}

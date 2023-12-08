@@ -37,6 +37,10 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AuthContext from "../../../../components/shared/authContext";
+import logo from '../../../../assets/images/logo.png'
+import userLogo from '../../../../assets/images/user.png'
+
+
 import { useCookies } from "react-cookie";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -134,7 +138,7 @@ const MyProSidebar = () => {
                   alt="app"
                   width="170px"
                   height="170px"
-                  src={require('../../../../assets/images/logo.png')}
+                  src={logo}
                   style={{ cursor: "pointer", paddingTop:'20px' }}
                 />
                 
@@ -164,7 +168,7 @@ const MyProSidebar = () => {
                   alt="profile user"
                   width="100px"
                   height="100px"
-                  src={require('../../../../assets/images/user.png')}
+                  src={userLogo}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>

@@ -31,6 +31,11 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AuthContext from "../../../../components/shared/authContext";
 import { useCookies } from "react-cookie";
+import logo from '../../../../assets/images/logo.png'
+import rec from '../../../../assets/images/rec.jpg'
+
+
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -128,7 +133,7 @@ const MyProSidebar = () => {
                   alt="app"
                   width="170px"
                   height="170px"
-                  src={require('../../../../assets/images/logo.png')}
+                  src={logo}
                   style={{ cursor: "pointer", paddingTop:'20px' }}
                 />
                 
@@ -171,7 +176,7 @@ const MyProSidebar = () => {
                   alt="profile user"
                   width="150px"
                   height="170px"
-                  src={require('../../../../assets/images/rec.jpg')}
+                  src={rec}
                   style={{ cursor: "pointer", borderRadius: "20%" }}
                 />
               </Box>
