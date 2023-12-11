@@ -13,6 +13,7 @@ import { Bounce } from "react-activity";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../../keys";
 import axios from "axios";
+import { jsPDF } from "jspdf";
 import { useRef } from "react";
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -34,9 +35,11 @@ import {
   MDBRow,
   MDBTooltip,
   MDBTypography,
+  MDBTable, MDBTableBody, MDBTableHead 
   } from "mdb-react-ui-kit";
   import Modal from '@mui/material/Modal';
   import CloseIcon from '@mui/icons-material/Close';
+  import { useReactToPrint } from 'react-to-print';
 
 
 const Sales = () => {
@@ -52,7 +55,9 @@ const Sales = () => {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openRec, setOpenRec] = useState(false);
   const handleClose = () => setOpen(false);
+  const handleCloseRec = () => setOpenRec(false);
   const formRef = useRef(null);
   const handleReset = () => {
     formRef.current.reset()
@@ -135,6 +140,14 @@ const Sales = () => {
     // Update the state with the new array
     setCartItems(updatedCartItems);
   }
+
+
+  const componentRef = useRef();
+  
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
+
   
   const handleSale = (event) => {
     // console.log(itemId)
@@ -166,7 +179,8 @@ const Sales = () => {
               })
               // handleReset()
               handleClose()
-              setCartItems([])
+              setOpenRec(true)
+              // setCartItems([])
               // console.log(res.data)
             alert('Item purchased successfully')
             console.log(res.data)
@@ -366,7 +380,99 @@ const Sales = () => {
                   )}
                     
                 </Card.Body>
+
+                <Modal
+                  open={openRec}
+                  onClose={handleCloseRec}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <section ref={componentRef} style={{
+                    // width:'50%', 
+                    display:'flex', 
+                    justifyContent:'center', 
+                    alignItems:'center',
+                    // height:'100vh',
+                    }}>
+                    <MDBContainer className="py-5 ">
+                      <MDBRow className="justify-content-center my-4">
+                        
+                        <MDBCol md="4">
+                          <MDBCard className="mb-4">
+                            <MDBCardHeader>
+                              <div style={{flexDirection:'row', display:'flex', justifyContent:'space-between'}}>
+                              <MDBTypography tag="h5" className="mb-0 text-black ">
+                                INVOICE
+                              </MDBTypography>
+                              <div onClick={handleCloseRec} style={{cursor:'pointer'}}>
+                                <CloseIcon style={{color: '#000'}} />
+                              </div>
+
+                              </div>
+                            </MDBCardHeader>
+                            <MDBCardBody>
+                              <MDBListGroup flush>
+                              <MDBListGroupItem
+                                  className="d-flex  flex-column border-0 px-0 pb-0 text-dark fw-bold ">
+                                  <span>Invoice Number:</span>
+                                  <span>Cashier:</span>
+                                  <span>Customer:</span>
+                                </MDBListGroupItem>
+                              <MDBTable>
+                                <MDBTableHead>
+                                  <tr>
+                                    <th className="border-0">ITEM</th>
+                                    <th className="border-0">QTY</th>
+                                    {/* <th className="border-0">PRICE</th> */}
+                                    <th className="border-0">TOTAL</th>
+                                  </tr>
+                                </MDBTableHead>
+                                <MDBTableBody>
+                                  {cartItems.map((item, index) => (
+                                    <tr key={index}>
+                                      <td className="border-0">{item.item_name}</td>
+                                      <td className="border-0">{item.item_quantity}</td>
+                                      {/* <td className="border-0">K{item.item_price}</td> */}
+                                      <td className="border-0">K{item.net_amount}</td>
+                                    </tr>
+                                  ))}
+                                </MDBTableBody>
+                              </MDBTable>
+                                <MDBListGroupItem
+                                  className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                  <div>
+                                    <strong>Total amount</strong>
+                                    <strong>
+                                      <p className="mb-0">(including VAT)</p>
+                                    </strong>
+                                  </div>
+                                  <span>
+                                    <strong>K{total}</strong>
+                                  </span>
+                                </MDBListGroupItem>
+                              </MDBListGroup>
+                              <Button disabled={loading} variant="primary" onClick={handlePrint} style={{padding:5, marginTop: 20, alignItems:'center', flex:1, justifyContent:'center'}}>
+                              {/* {!loading ? ( */}
+                                <div style={{display:'flex', flexDirection:'row', }}>
+                                    {/* <AttachMoneyIcon /> */}
+                                    <div style={{marginLeft:0.5}}>
+                                      Print Receipt
+                                    </div>
+
+                                </div>
+                                {/* ) : (
+                                    <Bounce />
+                                  )} */}
+                                  </Button>
+                            </MDBCardBody>
+                          </MDBCard>
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBContainer>
+                  </section>
+                </Modal>
                 </Card>
+
                 </Grid>
                 </Grid>
       </Box>
