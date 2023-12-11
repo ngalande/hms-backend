@@ -4,10 +4,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import Header from "../../../components/Header";
-import AuthContext from "../../../components/shared/authContext";
-import BarChart from "../../../components/growthRate";
-import LineChart from "../../../components/lineChart";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import { getDatabase, onValue, ref } from "firebase/database";
 import { Col, Row, Container, Card, Form, Button } from "react-bootstrap";
 import { Bounce } from "react-activity";
@@ -16,8 +14,29 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../../keys";
 import axios from "axios";
 import { useRef } from "react";
-
-
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCardHeader,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBInput,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRipple,
+  MDBRow,
+  MDBTooltip,
+  MDBTypography,
+  } from "mdb-react-ui-kit";
+  import Modal from '@mui/material/Modal';
+  import CloseIcon from '@mui/icons-material/Close';
 
 
 const Sales = () => {
@@ -25,16 +44,21 @@ const Sales = () => {
   const [items, setItems] = useState(null)
   const [itemQuantity, setitemQuantity] = useState(null)
   const [price, setPrice] = useState(null)
-  const [itemName, setItemName] = useState(null)
+  const [itemId, setItemId] = useState(null)
   const [quantityCompare, setQuantityCompare] = useState(null);
   const [netPrice, setNetPrice] = useState(null)
+  const [itemName, setItemName] = useState(null)
+  const [cartItems, setCartItems] = useState([])
+  const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   const formRef = useRef(null);
   const handleReset = () => {
     formRef.current.reset()
     setPrice(null)
     setNetPrice(null)
-    setItemName(null)
+    setItemId(null)
     setitemQuantity(null)
   }
   useEffect(() => {
@@ -48,43 +72,88 @@ const Sales = () => {
       })
 	}, []);
 
+  useEffect(() => {
+    const totalNetAmount = cartItems.reduce((total, item) => total + item.net_amount, 0);
+    setTotal(totalNetAmount)
+  }, [cartItems])
+  
+
   const handleChangeItemName = (text) => {
     if(text.target.value != 1){ let jsonValue= JSON.parse(text.target.value)
       setPrice(jsonValue.net_amount)
       setQuantityCompare(jsonValue.item_quantity)
       console.log(jsonValue.net_amount)
-      setItemName(jsonValue.id)
+      setItemId(jsonValue.id)
+      setItemName(jsonValue.item_name)
       if(itemQuantity){
         setNetPrice(itemQuantity*jsonValue.net_amount)
       }
+      
     }else{
       setPrice(0)
       setNetPrice(0)
-      setItemName(null)
+      setItemId(null)
     }
   }
   const handleChangeItemQuantity = (text) => {
     setitemQuantity(text.target.value)
     setNetPrice(price * text.target.value)
   }
+
+  const handleAddToCart = () => {
+    if(itemQuantity > quantityCompare){
+      alert('Item is out of stock')
+    }else{
+      const item = {
+        item_quantity: itemQuantity,
+        net_amount: netPrice,
+        item_id: itemId,
+        item_name: itemName
+      }
+      setCartItems(prevValues => [...prevValues, item]);
+
+    }
+    // axios.get(API+'restaurant/get-stockitems')
+    //   .then(res => {
+    //     let data = res.data
+    //     // let itemId = data.map(a => console.log(a.id))
+    //     setItems(res.data)
+    //   }).catch(e => {
+    //     console.log(e)
+    //   })
+    handleReset()
+  }
+
+  const handleOpenCart = () => {
+    setOpen(true);
+    // const handleClose = () => setOpen(false);
+  }
+
+  const handleRemove = (itemId) =>{
+    const updatedCartItems = cartItems.filter(item => item.item_id !== itemId);
+
+    // Update the state with the new array
+    setCartItems(updatedCartItems);
+  }
   
   const handleSale = (event) => {
-    console.log(itemName)
-    if(!itemQuantity){
-      alert('Enter Item Qunatity')
-    }else if(itemQuantity > quantityCompare){
-      alert('Error!! The selected quantity is more than what is available in stock')
+    // console.log(itemId)
+    if(cartItems.length <= 0){
+      alert('Cart is empty. Add items to cart first')
+    // }
+    // else if(itemQuantity > quantityCompare){
+    //   alert('Error!! The selected quantity is more than what is available in stock')
     }else{
-      if(!itemName || itemName == 1){
-        alert('Select an item to purchase')
-      }else{
-
-        setLoading(true)
-        const payload = {
-          item_quantity: itemQuantity,
-          net_amount: netPrice
-        }
-        axios.post(API+'restaurant/purchase-item/'+itemName, payload )
+      // if(!itemId || itemId == 1){
+      //   alert('Select an item to purchase')
+      // }else{
+        // console.log(cartItems)
+        // const payload = {
+          //   item_quantity: itemQuantity,
+          //   net_amount: netPrice
+          // }
+          setLoading(true)
+        axios.post(API+'restaurant/purchase-item/', cartItems )
           .then(res => {
             setLoading(false)
             axios.get(API+'restaurant/get-stockitems')
@@ -95,7 +164,10 @@ const Sales = () => {
               }).catch(e => {
                 console.log(e)
               })
-              handleReset()
+              // handleReset()
+              handleClose()
+              setCartItems([])
+              // console.log(res.data)
             alert('Item purchased successfully')
             console.log(res.data)
           }).catch(e => {
@@ -103,7 +175,7 @@ const Sales = () => {
             setLoading(false)
             alert('Failed to place order, Please try again')
           })
-      }
+      // }
     }
   }
 
@@ -155,9 +227,97 @@ const Sales = () => {
             style={{ minHeight: '100vh',  }}
         >
         <Grid item xs={5}>
+        
 
             <Card className="shadow" style={{backgroundColor: colors.primary[400], }}>
                 <Card.Body>
+                  <div onClick={handleOpenCart} style={{justifyContent:'right', alignItems:'center', display:'flex', cursor:'pointer'}}>
+                  <ShoppingBagIcon style={{width:30, height:30}} />
+                  <div style={{ position:'relative', top:-10, left:-6, backgroundColor:'#0373fc', borderRadius:10, width: 18, justifyContent:'center', alignItems:'center', display:'flex', fontWeight:'bold', fontSize:16}}>{cartItems.length}</div>
+                </div>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <section className=" w-100 gradient-custom">
+                    <MDBContainer className="py-5 ">
+                      <MDBRow className="justify-content-center my-4">
+                        
+                        <MDBCol md="4">
+                          <MDBCard className="mb-4">
+                            <MDBCardHeader>
+                              <div style={{flexDirection:'row', display:'flex', justifyContent:'space-between'}}>
+                              <MDBTypography tag="h5" className="mb-0 text-black ">
+                                Summary
+                              </MDBTypography>
+                              <div onClick={handleClose} style={{cursor:'pointer'}}>
+                                <CloseIcon style={{color: '#000'}} />
+                              </div>
+
+                              </div>
+                            </MDBCardHeader>
+                            <MDBCardBody>
+                              <MDBListGroup flush>
+                              <MDBListGroupItem
+                                  className="d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-dark fw-bold ">
+                                  Product
+                                  <span>Quantity</span>
+                                  <span>Amount</span>
+                                  <span>Remove</span>
+                                </MDBListGroupItem>
+                                {cartItems?.map(item => {
+                                  return (<MDBListGroupItem
+                                    className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    
+                                    <span>{item.item_name}</span>
+                                    <span>{item.item_quantity}</span>
+                                    <span>K{item.net_amount}</span>
+                                    <div onClick={() => handleRemove(item.item_id)} style={{cursor:'pointer'}}>
+                                      <DeleteForeverIcon style={{color: '#000'}} />
+                                    </div>
+                                  </MDBListGroupItem> )
+                                })}
+                                
+                                <MDBListGroupItem className="d-flex justify-content-between align-items-center  border-bottom border-start-0 border-end-0 px-0">
+                                 
+                                </MDBListGroupItem>
+                                <MDBListGroupItem
+                                  className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                  <div>
+                                    <strong>Total amount</strong>
+                                    <strong>
+                                      <p className="mb-0">(including VAT)</p>
+                                    </strong>
+                                  </div>
+                                  <span>
+                                    <strong>K{total}</strong>
+                                  </span>
+                                </MDBListGroupItem>
+                              </MDBListGroup>
+                              <Button disabled={loading} variant="primary" onClick={handleSale} style={{padding:5, marginTop: 20, alignItems:'center', flex:1, justifyContent:'center'}}>
+                              {!loading ? (
+                                <div style={{display:'flex', flexDirection:'row', }}>
+                                    <AttachMoneyIcon />
+                                    <div style={{marginLeft:0.5}}>
+                                      Sale
+                                    </div>
+
+                                </div>
+                                ) : (
+                                    <Bounce />
+                                  )}
+                                  </Button>
+                            </MDBCardBody>
+                          </MDBCard>
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBContainer>
+                  </section>
+                </Modal>
+               
+                  
                   {items ? (
                      <Form ref={formRef}>
                      <Form.Group style={{marginTop: 10}} className="mb-3 text-start" controlId="formBasicEmail">
@@ -189,14 +349,16 @@ const Sales = () => {
                          </Form.Label>
                          <Form.Control disabled={true} type="text" placeholder="Enter Stock Price" value={netPrice} />
                      </Form.Group>
-                     <Button disabled={loading} variant="primary" onClick={handleSale} style={{padding:5, width:'50%', marginTop: 20, alignItems:'center', flex:1, justifyContent:'center'}}>
-                         {!loading ? (
-                           <div>
-                             Purchase
-                           </div>
-                           ) : (
-                               <Bounce />
-                             )}
+                     <Button disabled={loading} variant="primary" onClick={handleAddToCart} style={{padding:5, width:'50%', marginTop: 20, alignItems:'center', flex:1, justifyContent:'center'}}>
+                         
+                          <div style={{display:'flex', flexDirection:'row', }}>
+                              <AddShoppingCartIcon />
+                              <div style={{marginLeft:0.5}}>
+                                Add to cart
+                              </div>
+
+                          </div>
+                           
                          </Button>
                      </Form>
                   ):(

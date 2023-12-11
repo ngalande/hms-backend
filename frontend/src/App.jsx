@@ -48,6 +48,10 @@ import HiredItems from "./admin/pages/hire/hiredItems";
 import ItemsForHire from "./admin/pages/hire/itemsForHire";
 import AddItemForHire from "./admin/pages/hire/addItemForHire";
 import CreateExpense from "./admin/pages/expenses/createExpense";
+import ResStock from "./admin/pages/resStock/resStock";
+import AddBarStock from "./admin/pages/barStock/addStock";
+import AddResStock from "./admin/pages/resStock/addResStock";
+import BarStockComponent from "./admin/pages/barStock/barStock";
 
 
 function App() {
@@ -143,6 +147,10 @@ function App() {
                   <Route path="/admin/hireditems" element={<HiredItems />} />
                   <Route path="/admin/itemsforhire" element={<ItemsForHire />} />
                   <Route path="/admin/additemforhire" element={<AddItemForHire />} />
+                  <Route path="/admin/barstock" element={<BarStockComponent />} />
+                  <Route path="/admin/resstock" element={<ResStock />} />
+                  <Route path="/admin/addbarstock" element={<AddBarStock />} />
+                  <Route path="/admin/addresstock" element={<AddResStock />} />
                 </Route>
                 <Route element={<SidebarLayoutRes />}>
                   <Route path='/res/home' element={<RestaurantDashboard />} />

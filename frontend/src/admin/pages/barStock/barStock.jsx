@@ -18,7 +18,7 @@ import { API } from "../../../keys";
 const db = getDatabase(app);
 
 
-const Stock = () => {
+const BarStockComponent = () => {
   const navigate = useNavigate();
   const [Data, setData] = useState([])
   const [anaData, setAnaData] = useState(null)
@@ -32,10 +32,9 @@ const Stock = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-		axios.get(API+'restaurant/get-stockitems')
+		axios.get(API+'bar/get-stockitems')
       .then(res => {
         setStock(res.data)
-        console.log(res.data)
       }).catch(e => {
         console.log(e)
       })
@@ -69,7 +68,7 @@ const Stock = () => {
     { field: "status", headerName: "Status",flex:1 },
     { 
       field: "createdAt", 
-      headerName: "Date",
+      headerName: "Created At",
       flex:1,
       renderCell: (params) => {
         let newString = String(params.row.createdAt)
@@ -83,7 +82,7 @@ const Stock = () => {
 
   return (
     <Box m="20px" >
-      <Header title="STOCK" subtitle="Manage Stock in Restaurant" />
+      <Header title="BAR STOCK" subtitle="Manage Stock in Bar" />
       {/* <LineChart /> */}
       <Box
         m="8px 0 0 0"
@@ -131,4 +130,4 @@ const Stock = () => {
   );
 };
 
-export default Stock;
+export default BarStockComponent;

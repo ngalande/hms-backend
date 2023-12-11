@@ -1,8 +1,8 @@
 const RestaurantController = (serviceContainer) => {
     const purchaseItem = async(req, res) => {
-        let id = req.params.id;
+        // let id = req.body.id;
         try {
-            let purchaseditem = await serviceContainer.restaurantservice.PurchaseItem(id, req.body)
+            let purchaseditem = await serviceContainer.restaurantservice.PurchaseItem(req.body)
             return res.status(201).json({
                 success: true,
                 message: `Item successfully purchased!`,

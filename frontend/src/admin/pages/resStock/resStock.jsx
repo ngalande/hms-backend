@@ -18,7 +18,7 @@ import { API } from "../../../keys";
 const db = getDatabase(app);
 
 
-const Stock = () => {
+const ResStock = () => {
   const navigate = useNavigate();
   const [Data, setData] = useState([])
   const [anaData, setAnaData] = useState(null)
@@ -34,8 +34,8 @@ const Stock = () => {
   useEffect(() => {
 		axios.get(API+'restaurant/get-stockitems')
       .then(res => {
-        setStock(res.data)
         console.log(res.data)
+        setStock(res.data)
       }).catch(e => {
         console.log(e)
       })
@@ -69,7 +69,7 @@ const Stock = () => {
     { field: "status", headerName: "Status",flex:1 },
     { 
       field: "createdAt", 
-      headerName: "Date",
+      headerName: "Created At",
       flex:1,
       renderCell: (params) => {
         let newString = String(params.row.createdAt)
@@ -131,4 +131,4 @@ const Stock = () => {
   );
 };
 
-export default Stock;
+export default ResStock;

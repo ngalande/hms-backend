@@ -99,6 +99,13 @@ const BarService = () => {
         if(getstockitems.length < 1){
             throw new Error("No Stock Items")
         }
+        for (const stockItem of getstockitems) {
+            // Check if item_quantity is less than 1
+            if (stockItem.dataValues.item_quantity < 1) {
+              // Change availability to 'OutOfStock'
+              stockItem.dataValues.availabilty = 'OutOfStock';
+            }
+          }
 
         return getstockitems
     }

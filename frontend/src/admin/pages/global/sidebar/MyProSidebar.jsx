@@ -12,8 +12,8 @@ import { useTheme, Box, Typography, IconButton, Button } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import AutoDelete from "@mui/icons-material/AutoDelete";
-import ChairIcon from '@mui/icons-material/Chair';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import StyleIcon from '@mui/icons-material/Style';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
@@ -191,6 +191,52 @@ const MyProSidebar = () => {
               title="Dashboard"
               to="/admin/home"
               icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             {!collapsed && 
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 20px 5px 20px" }}
+            >
+             Bar Stock
+            </Typography>
+            }
+            <Item
+              title="Add Bar New Stock"
+              to="/admin/addbarstock"
+              icon={<AddShoppingCartIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Bar Stock"
+              to="/admin/barstock"
+              icon={<InventoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             {!collapsed && 
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 20px 5px 20px" }}
+            >
+             Restaurant Stock
+            </Typography>
+            }
+            <Item
+              title="Add New Stock"
+              to="/admin/addresstock"
+              icon={<AddShoppingCartIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Stock"
+              to="/admin/resstock"
+              icon={<InventoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />

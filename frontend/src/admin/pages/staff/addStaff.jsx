@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
@@ -28,10 +28,7 @@ const AddStaff = () => {
   const [userType, setUserType] = useState(null)
   const [password, setPassword] = useState(null)
   const [errors, setErrors] = useState({});
-  const [enquiries, setEnquiries] = useState(null)
-  const [subject, setSubject] = useState(null)
-  const [message, setMessage] = useState(null)
-  const [notenquiries, setNotUsers] = useState({})
+  const formRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
   const [loading, setLoading] = useState(false);
@@ -42,6 +39,17 @@ const AddStaff = () => {
     const jsonValue = JSON.parse(data)
     navigate('chart', {state:jsonValue})
     setAnaData(jsonValue)
+  };
+
+  
+  const handleReset = () => {
+    formRef.current.reset();
+    setUsername(null)
+    setEmail(null)
+    setPassword(null)
+    setUserType(null)
+    
+    // setValidated(false);
   };
 
   const handleClose = () => {
@@ -126,11 +134,13 @@ const AddStaff = () => {
           console.log(res.data.success)
           setLoading(false)
           alert('User created successfully')
+          handleReset()
         }).catch(e => {
           // console.log(e.response.data)
           if(String(e?.response?.data?.error).includes('User already exists')){
             alert('User with the provided email already exists')
             setLoading(false)
+            
           }else{
             setLoading(false)
             alert('An error occurred while creating the user')
@@ -187,7 +197,7 @@ const AddStaff = () => {
             <Card className="shadow" style={{backgroundColor: colors.primary[400], }}>
                 <Card.Body>
 
-                    <Form >
+                    <Form ref={formRef}>
                     <Form.Group>
                         <Form.Label className="text-start">
                         Username

@@ -217,13 +217,13 @@ const MyProSidebar = () => {
               Stock
             </Typography>
             }
-            <Item
+            {/* <Item
               title="Add New Stock"
               to="/res/addstock"
               icon={<AddShoppingCartIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Manage Stock"
               to="/res/stock"

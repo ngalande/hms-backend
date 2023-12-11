@@ -25,7 +25,7 @@ router.delete('/delete-stockitem/:id', (req, res) =>
 )
 
 //purchase item
-router.post('/purchase-item/:id', (req, res) => 
+router.post('/purchase-item', (req, res) => 
     RestaurantControllerHandler.purchaseItem(req, res)
 )
 
