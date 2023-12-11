@@ -4,58 +4,46 @@ const BarSale = db.BarItemSale;
 const BarRepository = require('../repositories/BarRepository');
 
 const BarService = () => {
-    const PurchaseItem = async (id, Data) => {
-        const  purchaseitem = await BarRepository.findRetailStockItemByID(id);
-        if(!purchaseitem){
-            throw new Error('Stock Not Found')
-        }
-        const initial_quantity = purchaseitem?.item_quantity
-        const {item_quantity, net_amount} = Data
-        console.log(item_quantity)
-        if(initial_quantity == 0){
-            const payload = {
-                availabilty: 'OutOfStock',
+    const PurchaseItem = async (Data) => {
+        for (const data of Data){
+            // console.log(data)
+            
+            const {item_quantity, net_amount, item_id} = data
+            const  purchaseitem = await BarRepository.findRetailStockItemByID(item_id);
+            if(!purchaseitem){
+                throw new Error('Stock Not Found')
             }
-            Bar.update(payload, { where:{id: id}})
-        }
-        if(item_quantity > initial_quantity){
-            throw new Error('Stock Quantity is less than the requested quantity or maybe OutOfStock')
-        }
-        const final_quantity = initial_quantity - item_quantity
-        
-        // if(1 < 2){
-        //     return Error('blah')
-        // }
+            const initial_quantity = purchaseitem?.item_quantity
+            console.log(item_quantity)
+            if(initial_quantity == 0){
+                const payload = {
+                    availabilty: 'OutOfStock',
+                }
+                Bar.update(payload, { where:{id: id}})
+            }
+            if(item_quantity > initial_quantity){
+                throw new Error('Stock Quantity is less than the requested quantity or maybe OutOfStock')
+            }
+            const final_quantity = initial_quantity - item_quantity
+            
+            
+            const payload = {
+                item_quantity: final_quantity,
+            }
+    
+            const sales_payload = {
+                item_id: purchaseitem.id,
+                item_name: purchaseitem.item_name,
+                item_quantity: item_quantity,
+                item_price: purchaseitem.item_price,
+                net_amount: net_amount
+            }
+            console.log(sales_payload)
+    
+            Bar.update(payload, { where:{id: item_id}})
+            BarSale.create(sales_payload)
 
-        
-        // if(final_quantity <= 0 ){
-        //     // const final_status = "OutOfStock"
-        //     const status_payload = {
-        //         status: "OutOfStock"
-        //     }
-        //     Bar.update(status_payload, {where:{id: id}})
-        // }
-        
-        // const itemstatus = purchaseitem.status
-        // if(itemstatus == 'OutOfStock'){
-        //     throw new Error('Not Found - Out of stock')
-        // }
-        
-        const payload = {
-            item_quantity: final_quantity,
         }
-
-        const sales_payload = {
-            item_id: purchaseitem.id,
-            item_name: purchaseitem.item_name,
-            item_quantity: item_quantity,
-            item_price: purchaseitem.item_price,
-            net_amount: net_amount
-        }
-        console.log(sales_payload)
-
-        Bar.update(payload, { where:{id: id}})
-        BarSale.create(sales_payload)
     }
 
     const getPurchasedItems = async (req, res) => {

@@ -70,7 +70,7 @@ const BarStock = () => {
     { field: "status", headerName: "Status",flex:1 },
     { 
       field: "createdAt", 
-      headerName: "Date",
+      headerName: "Created At",
       flex:1,
       renderCell: (params) => {
         let newString = String(params.row.createdAt)

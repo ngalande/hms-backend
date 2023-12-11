@@ -24,7 +24,7 @@ router.delete('/delete-stockitem/:id', (req, res) =>
     BarControllerHandler.deleteStockItem(req, res)
 )
 
-router.post('/purchase-item/:id', (req, res) => 
+router.post('/purchase-item', (req, res) => 
     BarControllerHandler.purchaseItem(req, res)
 )
 
