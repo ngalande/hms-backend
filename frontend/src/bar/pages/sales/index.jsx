@@ -170,10 +170,10 @@ const BarSales = () => {
           .then(res => {
             setLoading(false)
             axios.get(API+'bar/get-stockitems')
-              .then(res => {
-                let data = res.data
+              .then(res2 => {
+                let data = res2.data
                 // let itemId = data.map(a => console.log(a.id))
-                setItems(res.data)
+                setItems(res2.data)
               }).catch(e => {
                 console.log(e)
               })
