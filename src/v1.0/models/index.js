@@ -6,7 +6,7 @@ require('dotenv').config();
 const { DATABASE, USERNAME, PASSWORD, HOST, DB_PORT} = process.env;
 console.log(PASSWORD)
 
-const sequelize = new Sequelize("postgres://postgres:1234@localhost/hotel", {
+const sequelize = new Sequelize("postgres://postgres:Gramosi@user@api.gramosi.com/hotel", {
     dialect: dbconfig.dialect,
     operatorAliases: false,
     pool: {
