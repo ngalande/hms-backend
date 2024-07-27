@@ -1,3 +1,3 @@
-const API = "http://localhost:5001/api/v2/"
+const API = "https://hotelapi.gramosi.com/api/v2/"
 
-export {API}
+export { API }
