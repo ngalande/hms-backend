@@ -44,16 +44,16 @@ app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    allowedHeaders: ['sessionId','Access-Control-Allow-Origin', 'Content-Type', 'master-token'],
+    allowedHeaders: ['sessionId', 'Access-Control-Allow-Origin', 'Content-Type', 'master-token'],
     exposedHeaders: ['sessionId'],
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
-    }
+}
 ));
 
 app.get("/", (req, res) => {
-    res.send("<h2>nothing!</h2>");
+    res.send("<h2>hotel!</h2>");
 })
 
 //db connections
@@ -69,7 +69,7 @@ app.get("/", (req, res) => {
 //database config
 db.sequelize.sync()
     .then(() => console.log("Database connected.."))
-    .catch(err => console.log('Error: '+ err))
+    .catch(err => console.log('Error: ' + err))
 
 // configuring routes to be accessed by client
 // app.use('/api/v1/user', users);
@@ -83,7 +83,7 @@ app.use('/api/v2/hire', hire)
 app.use('/api/v2/expenditure', expenditure)
 
 //starting port 
-port = process.env.PORT;
+port = 5003;
 app.listen(port, (req, res) => {
     console.log(`Listening on ${port}`)
 });

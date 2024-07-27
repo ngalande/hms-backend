@@ -16,9 +16,8 @@
     "sequelize": "^6.32.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "postinstall": "cd frontend && npm install && cd..",
-    "server": "nodemon server.js",  
+    "start": "npm run server",
+    "server": "nodemon server.js",
     "client": "cd frontend && npm run dev",
     "db:create": "sequelize-cli db:create",
     "db:migrate": "sequelize-cli db:migrate",
