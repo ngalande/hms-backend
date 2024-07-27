@@ -1,26 +1,29 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { viteCommonjs, esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+import vitePluginRequire from 'vite-plugin-require'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 
-export default defineConfig(() => {
-  return {
-    // https://github.com/vitejs/vite/issues/1973#issuecomment-787571499
-    define: {
-        'process.env': {},
-    },
-    build: {
-      outDir: 'build',
-    },
-    plugins: [react()],
 
-     // Workaround before renaming .js to .jsx
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), viteCommonjs(), vitePluginRequire.default()],
+  build: {
+    outDir: './dist'
+  },
   optimizeDeps: {
     esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
+      // plugins: [esbuildCommonjs(['react-s3'])],
+      define: {
+        global: 'globalThis'
       },
-    },
-  },
-  // End workaround
-
-  };
-});
+      // Enable esbuild polyfill plugins
+      plugins: [
+        esbuildCommonjs(['react-s3']),
+        NodeGlobalsPolyfillPlugin({
+          buffer: true
+        })
+      ]
+    }
+  }
+})
