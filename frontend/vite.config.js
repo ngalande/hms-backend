@@ -7,7 +7,7 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteCommonjs(), vitePluginRequire.default()],
+  plugins: [react(), viteCommonjs(), vitePluginRequire],
   build: {
     outDir: './dist'
   },

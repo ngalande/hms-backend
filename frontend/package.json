@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@fullcalendar/core": "5.11.3",
     "@fullcalendar/daygrid": "5.11.3",
     "@fullcalendar/interaction": "^5.11.3",
@@ -26,6 +27,7 @@
     "@nivo/geo": "0.80.0",
     "@nivo/line": "0.80.0",
     "@nivo/pie": "0.80.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@react-google-maps/api": "^2.18.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -51,6 +53,7 @@
     "react-to-print": "^2.14.15",
     "reactjs-popup": "^2.0.6",
     "web-vitals": "^2.1.4",
+    "vite-plugin-require": "^1.1.11",
     "yup": "0.32.11"
   },
   "eslintConfig": {
