@@ -44,13 +44,13 @@ app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    allowedHeaders: ['sessionId', 'Access-Control-Allow-Origin', 'Content-Type', 'master-token'],
-    exposedHeaders: ['sessionId'],
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-}
-));
+    origin: '*', // Allow all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
+    allowedHeaders: ['sessionId', 'Content-Type', 'master-token'], // Allowed headers
+    exposedHeaders: ['sessionId'], // Headers exposed to the browser
+    preflightContinue: false, // Don't pass the CORS preflight response to the next handler
+    optionsSuccessStatus: 204 // Response status for successful OPTIONS requests
+}));
 
 app.get("/", (req, res) => {
     res.send("<h2>hotel!</h2>");

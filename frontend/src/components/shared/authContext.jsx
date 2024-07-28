@@ -68,6 +68,7 @@ export const AuthContextProvider = ({ children }) => {
       "email": email,
       "password": password
     }
+    console.log(API + 'user/login')
     axios.post(API + 'user/login', payload).then(async (res) => {
       // console.log(res.headers['set-cookie'])
       console.log(res.data)
@@ -103,6 +104,7 @@ export const AuthContextProvider = ({ children }) => {
 
     }).catch(e => {
       setLoading(false)
+      console.log(e)
       if (String(e?.response?.data?.message).includes('Incorrect password, try again')) {
         setLoading(false)
         alert('The password you entered is incorrect')
